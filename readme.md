@@ -15,8 +15,8 @@ Progress Report
 
 Timeline
 --------
-	1. This
-	2. is
-	3. a
-	4. numbered
-	5. list
+1. This
+2. is
+3. a
+4. numbered
+5. list
