@@ -7,16 +7,13 @@ In this readme, we will post our progress on the project so far, as well as our 
 
 Progress Report
 ---------------
-	* This
-	* is
-	* a
-	* bulleted
-	* list
+* Finished setting up Github for project management
+* Finished writing LlamaFarm.java
+* Created the basic outline of GamePanel.java using the Swing Framework
 
 Timeline
 --------
-1. This
-2. is
-3. a
-4. numbered
-5. list
+1. Finish the rest of the project
+2. Eat moar cookies
+3. Finish playing Portal 2
+4. Finish reading Harry Potter and the Methods of Rationality
