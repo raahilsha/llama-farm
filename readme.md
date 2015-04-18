@@ -7,6 +7,16 @@ In this readme, we will post our progress on the project so far, as well as our 
 
 Progress Report
 ---------------
+	* This
+	* is
+	* a
+	* bulleted
+	* list
 
 Timeline
 --------
+	1. This
+	2. is
+	3. a
+	4. numbered
+	5. list
