@@ -11,13 +11,11 @@ public class GameWorld
 	private float arability;
 	private float energyDrain;
 	
-	// Constructor for GameWorld
 	public GameWorld()
 	{
 		
 	}
 	
-	// Runs every frame and decides to create new generation if necessary
 	public void Tick()
 	{
 		if (isRunningSimulation)
@@ -26,19 +24,15 @@ public class GameWorld
 		}
 		else
 		{
-			CreateNewGeneration(); 
-			isRunningSimulation = true;
+			CreateNewGeneration();
 		}
 	}
 	
-	
-	// Takes the arraylist of llamas and creates a brand new generation
 	public void CreateNewGeneration()
 	{
 		
 	}
 	
-	// Renders the tiles and llamas onto the game panel
 	public void RenderWorld(Graphics img)
 	{
 		

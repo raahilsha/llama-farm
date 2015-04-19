@@ -9,8 +9,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private LlamaFarm mainGame;
 
 	private int framesPerSecond = 60;
-	
-	// Used for double buffering
 	private Image dbImg;
 	private Graphics dbG;
 
@@ -18,7 +16,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private boolean isPaused;
 	private boolean isRunning;
 
-	// Instantiates game panel
 	public GamePanel(LlamaFarm mg, int width, int height)
 	{
 		mainGame = mg;
@@ -33,7 +30,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		addMouseMotionListener(this);
 	}
 
-	// Starts game upon completion of panel creation
 	public void addNotify()
 	{
 		super.addNotify();
@@ -46,7 +42,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		game.start();
 	}
 
-	// Takes care of current window state
 	public void resumeGame()
 	{
 		isPaused = false;
@@ -67,7 +62,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
 		isRunning = true;
 
-		// Main loop of the game panel!
 		while (isRunning)
 		{
 			gameUpdate();
@@ -76,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 
 			try
 			{
-				Thread.sleep(1000 / framesPerSecond); // This pauses current thread to wait until next frame
+				Thread.sleep(1000 / framesPerSecond);
 			}
 			catch (InterruptedException ex)
 			{
@@ -88,7 +82,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		System.exit(0);
 	}
 
-	// Runs main simulation of game world
 	public void gameUpdate()
 	{
 		if (!isPaused)
@@ -110,14 +103,11 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 				dbG = dbImg.getGraphics();
 			}
 		}
-		
-		// Renders the game onto background image
 		Color backgroundColor = Color.WHITE;
 		dbG.setColor(backgroundColor);
 		dbG.fillRect(0, 0, pWidth, pHeight);
 	}
 
-	// Actual double buffer code
 	public void paintScreen()
 	{
 		Graphics g;
@@ -135,7 +125,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		}
 	}
 
-	// Everything below here takes care of key and mouse events
 	public void keyPressed(KeyEvent e)
 	{
 	}
