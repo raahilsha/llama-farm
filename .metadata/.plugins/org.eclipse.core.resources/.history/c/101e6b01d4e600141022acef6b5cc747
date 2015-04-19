@@ -52,7 +52,7 @@ public class Gene
 	
 
 	// Mutates and crosses over the gene
-	public void Meiosis()
+	public Gene Meiosis()
 	{
 		String newStrand1 = "";
 		String newStrand2 = "";

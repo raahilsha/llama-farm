@@ -8,8 +8,8 @@ public class GameWorld
 	private Tile[][] worldTiles;
 	private int tileSize;
 	
-	private double arability;
-	private double energyDrain;
+	private float arability;
+	private float energyDrain;
 	
 	// Constructor for GameWorld
 	public GameWorld()
