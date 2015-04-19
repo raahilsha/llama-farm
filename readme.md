@@ -7,6 +7,7 @@ In this readme, we will post our progress on the project so far, as well as our 
 
 Progress Report
 ---------------
+Week 1
 * Finished setting up Github for project management
 * Finished writing LlamaFarm.java
 * Created the basic outline of GamePanel.java using the Swing Framework
