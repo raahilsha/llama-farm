@@ -18,11 +18,14 @@ The majority of important work completed this week is in LlamaFarm/src/Gene.java
 Timeline
 --------
 Before functionality checkpoint:
+
 1. Finish implementing Llama class
 2. Finish implementing GameWorld class
 3. Add minimal implementation to Tile class for rendering
 4. In GamePanel, create code to manage and run simulation
+
 Before final project submission:
+
 1. Continue working in GamePanel for simulation management
 2. Focus more on accessory and optional features
 3. Finish implementing project
