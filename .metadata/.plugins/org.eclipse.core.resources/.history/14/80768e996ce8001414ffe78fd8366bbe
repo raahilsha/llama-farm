@@ -1,0 +1,46 @@
+import java.awt.*;
+
+public class Llama
+{
+	// All possible states a llama can obtain
+	// Note that NIRVANA is not among these
+	public enum State { IDLE_STATE, FOOD_SEEK, EATING, AGGRESSIVE, ATTACKING, RUNNING_AWAY, RANDOM_WALK }
+	
+	private GameWorld world;
+	private Gene[] genome;
+	private int energy;
+	
+	private State currentState;
+	
+	// Constructor for llama
+	public Llama(GameWorld gw, Gene[] g)
+	{
+		world = gw;
+		genome = g;
+		currentState = State.IDLE_STATE;
+	}
+	
+	// Renders Llama onto game panel
+	public void RenderLlama(Graphics img)
+	{
+		
+	}
+	
+	// Breeds one llama with other
+	public Llama BreedWith(Llama other)
+	{
+		return null;
+	}
+	
+	// Runs the Finite State Machine of Llama 
+	public void Action(int targetX, int targetY)
+	{
+		
+	}
+	
+	// Accessor for genome; used when mating
+	public Gene[] getGenome()
+	{
+		return genome;
+	}
+}

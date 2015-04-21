@@ -23,7 +23,11 @@ public class LlamaFarm extends JFrame implements WindowListener
 	public static void main(String[] args)
 	{
 		// Testing
-		// testGene();
+		for (int i = 0; i < 5; i++)
+		{
+			testGene();
+			System.out.println();
+		}
 		
 		new LlamaFarm();
 	}
@@ -41,8 +45,8 @@ public class LlamaFarm extends JFrame implements WindowListener
 	{
 		// Gene Testing
 		// Create test genes with automatic values
-		Gene a = new Gene(20, 0.9, 0.1);
-		Gene b = new Gene(20, 0.1, 0.1);
+		Gene a = new Gene(30, 0.5, 0.01);
+		Gene b = new Gene(30, 0.5, 0.01);
 		System.out.println("Parents:");
 		System.out.println(a.getStrand1() + " " + a.getStrand2());
 		System.out.println(b.getStrand1() + " " + b.getStrand2());
