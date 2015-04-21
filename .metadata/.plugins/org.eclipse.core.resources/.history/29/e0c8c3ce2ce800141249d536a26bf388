@@ -38,7 +38,6 @@ public class Gene
 	// Constructor for a pre-determined gene
 	public Gene(String s1, String s2, double mutation)
 	{
-		offspringCount = 4;
 		mutationRate = mutation;
 		strandLength = s1.length();
 		strand1 = s1;
@@ -49,16 +48,6 @@ public class Gene
 	public String toString()
 	{
 		return strand1 + strand2;
-	}
-	
-	public String getStrand1()
-	{
-		return strand1;
-	}
-	
-	public String getStrand2()
-	{
-		return strand2;
 	}
 	
 
@@ -120,28 +109,5 @@ public class Gene
 		}
 		
 		return toReturn;
-	}
-	
-	// Gets the percent activation of a gene
-	public double getActivation()
-	{
-		int totalLength = strand1.length() * 2;
-		int activeNucleotides = 0;
-		
-		for (int i = 0; i < strand1.length(); i++)
-		{
-			if (strand1.charAt(i) == '1')
-				activeNucleotides++;
-			if (strand2.charAt(i) == '1')
-				activeNucleotides++;
-		}
-		
-		return ((double) activeNucleotides) / totalLength;
-	}
-	
-	// Changes the number of offspring to some non-standard value
-	public void changeOffspringCount(int x)
-	{
-		offspringCount = x;
 	}
 }

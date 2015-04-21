@@ -22,11 +22,8 @@ public class LlamaFarm extends JFrame implements WindowListener
 	// Called when user runs program
 	public static void main(String[] args)
 	{
-		// Testing
-		/*
-		 * testGene();
-		 * 
-		 */
+		for (int i = 0; i < 5; i++)
+			testGene();
 		
 		new LlamaFarm();
 	}

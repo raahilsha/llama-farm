@@ -138,10 +138,4 @@ public class Gene
 		
 		return ((double) activeNucleotides) / totalLength;
 	}
-	
-	// Changes the number of offspring to some non-standard value
-	public void changeOffspringCount(int x)
-	{
-		offspringCount = x;
-	}
 }

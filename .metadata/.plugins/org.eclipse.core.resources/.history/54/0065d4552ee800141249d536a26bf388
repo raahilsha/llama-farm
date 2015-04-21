@@ -22,11 +22,7 @@ public class LlamaFarm extends JFrame implements WindowListener
 	// Called when user runs program
 	public static void main(String[] args)
 	{
-		// Testing
-		/*
-		 * testGene();
-		 * 
-		 */
+		testGene();
 		
 		new LlamaFarm();
 	}
@@ -40,7 +36,7 @@ public class LlamaFarm extends JFrame implements WindowListener
 	}
 	
 	// Testing Functions
-	public static void testGene()
+	public void testGene()
 	{
 		// Gene Testing
 		Gene a = new Gene("1111111111", "0000000000", 0);

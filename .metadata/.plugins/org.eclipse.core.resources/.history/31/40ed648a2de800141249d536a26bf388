@@ -38,7 +38,6 @@ public class Gene
 	// Constructor for a pre-determined gene
 	public Gene(String s1, String s2, double mutation)
 	{
-		offspringCount = 4;
 		mutationRate = mutation;
 		strandLength = s1.length();
 		strand1 = s1;
@@ -137,11 +136,5 @@ public class Gene
 		}
 		
 		return ((double) activeNucleotides) / totalLength;
-	}
-	
-	// Changes the number of offspring to some non-standard value
-	public void changeOffspringCount(int x)
-	{
-		offspringCount = x;
 	}
 }
