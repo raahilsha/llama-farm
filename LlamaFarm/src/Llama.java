@@ -10,6 +10,8 @@ public class Llama
 	private Gene[] genome;
 	private int energy;
 	
+	private double hungerDriveInd, lazinessInd, violenceInd, metabolismInd, styleInd; // This is the order
+	
 	private State currentState;
 	
 	// Constructor for llama
@@ -18,6 +20,12 @@ public class Llama
 		world = gw;
 		genome = g;
 		currentState = State.IDLE_STATE;
+
+		hungerDriveInd = g[0].getActivation();
+		lazinessInd = g[1].getActivation();
+		violenceInd = g[2].getActivation();
+		metabolismInd = g[3].getActivation();
+		styleInd = g[4].getActivation();
 	}
 	
 	// Renders Llama onto game panel

@@ -7,6 +7,8 @@ public class Tile
 	private int xPos;
 	private int yPos;
 	
+	public enum TileTypes { SOIL, FOOD, HAZARD, OBSTACLE }
+	
 	// Constructor for tile
 	public Tile(Color c, int s, int x, int y)
 	{

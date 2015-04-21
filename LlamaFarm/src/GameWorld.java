@@ -14,7 +14,6 @@ public class GameWorld
 	// Constructor for GameWorld
 	public GameWorld()
 	{
-		
 	}
 	
 	// Runs every frame and decides to create new generation if necessary
