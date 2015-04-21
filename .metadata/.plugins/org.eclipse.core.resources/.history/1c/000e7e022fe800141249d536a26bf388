@@ -23,7 +23,10 @@ public class LlamaFarm extends JFrame implements WindowListener
 	public static void main(String[] args)
 	{
 		// Testing
-		// testGene();
+		/*
+		 * testGene();
+		 * 
+		 */
 		
 		new LlamaFarm();
 	}
@@ -56,7 +59,7 @@ public class LlamaFarm extends JFrame implements WindowListener
 		System.out.println("Children:");
 		for (Gene x : offspring)
 		{
-			System.out.println(x.getStrand1() + " " + x.getStrand2() + " - " + x.getActivation());
+			System.out.println(x.getStrand1() + " " + x.getStrand2());
 		}
 	}
 	

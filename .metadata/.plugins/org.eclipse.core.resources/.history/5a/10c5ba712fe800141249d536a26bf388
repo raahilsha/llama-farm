@@ -67,8 +67,6 @@ public class Gene
 	{
 		String newStrand1 = "";
 		String newStrand2 = "";
-		// Create a different temp newStrand1 because Strings use OOP and are copied by reference
-		String newStrand1temp = "";
 		
 		for (int i = 0; i < strandLength; i++)
 		{
@@ -83,15 +81,12 @@ public class Gene
 				newStrand2 += (int)(Math.random() * 2);
 			else
 				newStrand2 += strand2.charAt(i);
-			
-			// Builds newStrand1temp
-			newStrand1temp += newStrand1.charAt(i);
 		}
 		
 		// Perform crossing over of strands
 		int crossoverIndex = (int)(Math.random() * (strandLength + 1));
 		newStrand1 = newStrand1.substring(0, crossoverIndex) + newStrand2.substring(crossoverIndex);
-		newStrand2 = newStrand2.substring(0, crossoverIndex) + newStrand1temp.substring(crossoverIndex);
+		newStrand2 = newStrand2.substring(0, crossoverIndex) + newStrand1.substring(crossoverIndex);
 		
 		strand1 = newStrand1;
 		strand2 = newStrand2;

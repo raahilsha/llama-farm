@@ -23,7 +23,10 @@ public class LlamaFarm extends JFrame implements WindowListener
 	public static void main(String[] args)
 	{
 		// Testing
-		// testGene();
+		/*
+		 * testGene();
+		 * 
+		 */
 		
 		new LlamaFarm();
 	}
