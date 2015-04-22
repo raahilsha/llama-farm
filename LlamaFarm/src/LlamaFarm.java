@@ -15,7 +15,7 @@ public class LlamaFarm extends JFrame implements WindowListener
 
 		addWindowListener(this);
 		setSize(width, height);
-		setResizable(true);
+		setResizable(false);
 		setVisible(true);
 
 		int borderWidth = getWidth() - getContentPane().getWidth();
