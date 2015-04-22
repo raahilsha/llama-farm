@@ -80,7 +80,7 @@ public class GameWorld
 		{
 			for (int c = 0; c < numTiles; c++)
 			{
-				worldTiles[r][c].renderTile(img);
+				worldTiles[r][c].RenderTile(img);
 			}
 		}
 	}

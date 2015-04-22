@@ -61,26 +61,26 @@ public class GameWorld
 		}
 		else
 		{
-			createNewGeneration(); 
+			CreateNewGeneration(); 
 			isRunningSimulation = true;
 		}
 	}
 	
 	
 	// Takes the arraylist of llamas and creates a brand new generation
-	public void createNewGeneration()
+	public void CreateNewGeneration()
 	{
 		
 	}
 	
 	// Renders the tiles and llamas onto the game panel
-	public void renderWorld(Graphics img)
+	public void RenderWorld(Graphics img)
 	{
 		for (int r = 0; r < numTiles; r++)
 		{
 			for (int c = 0; c < numTiles; c++)
 			{
-				worldTiles[r][c].renderTile(img);
+				worldTiles[r][c].RenderTile(img);
 			}
 		}
 	}

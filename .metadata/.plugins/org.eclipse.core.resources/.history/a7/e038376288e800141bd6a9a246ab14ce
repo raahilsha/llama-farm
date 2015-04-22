@@ -63,7 +63,7 @@ public class Gene
 	
 
 	// Mutates and crosses over the gene
-	public void meiosis()
+	public void Meiosis()
 	{
 		String newStrand1 = "";
 		String newStrand2 = "";
@@ -98,7 +98,7 @@ public class Gene
 	}
 	
 	// Combines two genes together
-	public Gene[] combineWith(Gene other)
+	public Gene[] CombineWith(Gene other)
 	{
 		// Gets the strands from other gene
 		String strand1other = other.toString().substring(0, strandLength);

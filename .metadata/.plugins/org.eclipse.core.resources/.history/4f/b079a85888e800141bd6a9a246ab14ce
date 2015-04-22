@@ -29,13 +29,13 @@ public class Llama
 	}
 	
 	// Renders Llama onto game panel
-	public void renderLlama(Graphics img)
+	public void RenderLlama(Graphics img)
 	{
 		
 	}
 	
 	// Breeds one llama with other
-	public Llama[] breedWith(Llama other)
+	public Llama[] BreedWith(Llama other)
 	{
 		int offspringCount = 4;
 		int numGenes = genome.length;
@@ -48,7 +48,7 @@ public class Llama
 		// One pass to mate all the genes individually with each other
 		for (int i = 0; i < numGenes; i++)
 		{
-			finishedChildren[i] = genome[i].combineWith(otherGenome[i]);
+			finishedChildren[i] = genome[i].CombineWith(otherGenome[i]);
 		}
 		
 		// Transpose finishedChildren to allow us to extract chains of genes
@@ -70,7 +70,7 @@ public class Llama
 	}
 	
 	// Runs the Finite State Machine of Llama 
-	public void action(int targetX, int targetY)
+	public void Action(int targetX, int targetY)
 	{
 		switch (currentState)
 		{

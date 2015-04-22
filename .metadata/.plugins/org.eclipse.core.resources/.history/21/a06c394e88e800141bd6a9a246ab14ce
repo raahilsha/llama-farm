@@ -17,11 +17,11 @@ public class Tile
 		xPos = x;
 		yPos = y;
 		
-		changeTile(c);
+		ChangeTile(c);
 	}
 	
 	// Changes the color of tile
-	public void changeTile(TileTypes c)
+	public void ChangeTile(TileTypes c)
 	{
 		ttype = c;
 		
@@ -43,14 +43,14 @@ public class Tile
 	}
 	
 	// Renders the tile onto the game panel
-	public void renderTile(Graphics img)
+	public void RenderTile(Graphics img)
 	{
 		img.setColor(tileColor);
 		img.fillRect(xPos, yPos, tileSize, tileSize);
 	}
 	
 	// Accessor for tile type
-	public TileTypes getType()
+	public TileTypes GetType()
 	{
 		return ttype;
 	}
