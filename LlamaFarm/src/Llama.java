@@ -98,4 +98,10 @@ public class Llama
 	{
 		return genome;
 	}
+	
+	// Accessor for current state
+	public State getState()
+	{
+		return currentState;
+	}
 }
