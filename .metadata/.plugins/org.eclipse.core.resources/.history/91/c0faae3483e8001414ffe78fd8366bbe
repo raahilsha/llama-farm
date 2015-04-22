@@ -23,9 +23,7 @@ public class Tile
 	// Changes the color of tile
 	public void ChangeTile(TileTypes c)
 	{
-		ttype = c;
-		
-		switch (ttype)
+		switch (c)
 		{
 			case SOIL:
 				tileColor = new Color(158, 157, 38);

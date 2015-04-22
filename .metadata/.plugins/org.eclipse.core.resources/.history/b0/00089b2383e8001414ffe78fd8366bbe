@@ -13,17 +13,10 @@ public class Tile
 	// Constructor for tile
 	public Tile(TileTypes c, int s, int x, int y)
 	{
+		ttype = c;
 		tileSize = s;
 		xPos = x;
 		yPos = y;
-		
-		ChangeTile(c);
-	}
-	
-	// Changes the color of tile
-	public void ChangeTile(TileTypes c)
-	{
-		ttype = c;
 		
 		switch (ttype)
 		{
@@ -40,6 +33,12 @@ public class Tile
 				tileColor = new Color(55, 71, 79);
 				break;
 		}
+	}
+	
+	// Changes the color of tile
+	public void ChangeColor(Color c)
+	{
+		tileColor = c;
 	}
 	
 	// Renders the tile onto the game panel

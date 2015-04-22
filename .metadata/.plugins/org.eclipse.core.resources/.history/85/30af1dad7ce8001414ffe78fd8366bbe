@@ -17,9 +17,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private Thread game;
 	private boolean isPaused;
 	private boolean isRunning;
-	
-	// Game Specific Stuff
-	private GameWorld world;
 
 	// Instantiates game panel
 	public GamePanel(LlamaFarm mg, int width, int height)
@@ -45,9 +42,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 
 	public void startGame()
 	{
-		// Jungle
-		world = new GameWorld(.2, .3, .31, 5, pWidth);
-		
 		game = new Thread(this);
 		game.start();
 	}
@@ -121,7 +115,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		Color backgroundColor = Color.WHITE;
 		dbG.setColor(backgroundColor);
 		dbG.fillRect(0, 0, pWidth, pHeight);
-		world.RenderWorld(dbG);
 	}
 
 	// Actual double buffer code

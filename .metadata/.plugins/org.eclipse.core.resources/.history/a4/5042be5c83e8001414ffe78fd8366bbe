@@ -12,16 +12,11 @@ public class GameWorld
 	
 	private double arability;
 	private double energyDrain;
-	private double obsRate;
-	private double hazRate;
 	
 	// Constructor for GameWorld
-	public GameWorld(double a, double o, double h, int drain, int pw)
+	public GameWorld(double a, int drain, int pw)
 	{
 		arability = a;
-		obsRate = o;
-		hazRate = h;
-		
 		energyDrain = drain;
 		tileSize = pw / numTiles;
 		
@@ -30,24 +25,26 @@ public class GameWorld
 		{
 			for (int c = 0; c < numTiles; c++)
 			{
-				double ra = Math.random();
-				if (ra < arability)
+				if (Math.random() < arability)
 				{
 					worldTiles[r][c] = new Tile(Tile.TileTypes.FOOD, tileSize, c * tileSize, r * tileSize);
 				}
-				else if (ra < obsRate)
-				{
-					worldTiles[r][c] = new Tile(Tile.TileTypes.OBSTACLE, tileSize, c * tileSize, r * tileSize);
-				}
-				else if (ra < hazRate)
-				{
-					worldTiles[r][c] = new Tile(Tile.TileTypes.HAZARD, tileSize, c * tileSize, r * tileSize);
-				}
 				else
 				{
-					worldTiles[r][c] = new Tile(Tile.TileTypes.SOIL, tileSize, c * tileSize, r * tileSize);
+					double ra = Math.random();
+					if (ra < 0.1)
+					{
+						worldTiles[r][c] = new Tile(Tile.TileTypes.OBSTACLE, tileSize, c * tileSize, r * tileSize);
+					}
+					else if (ra < 0.15)
+					{
+						worldTiles[r][c] = new Tile(Tile.TileTypes.HAZARD, tileSize, c * tileSize, r * tileSize);
+					}
+					else
+					{
+						worldTiles[r][c] = new Tile(Tile.TileTypes.SOIL, tileSize, c * tileSize, r * tileSize);
+					}
 				}
-				
 			}
 		}
 	}

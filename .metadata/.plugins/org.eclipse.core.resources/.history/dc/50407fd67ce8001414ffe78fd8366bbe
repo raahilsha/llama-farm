@@ -46,7 +46,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	public void startGame()
 	{
 		// Jungle
-		world = new GameWorld(.2, .3, .31, 5, pWidth);
+		world = new GameWorld(.7, 5, pWidth / 50);
+		// Desert
+		// world = new GameWorld(.1, 15, pWidth / 50);
 		
 		game = new Thread(this);
 		game.start();
@@ -121,7 +123,6 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		Color backgroundColor = Color.WHITE;
 		dbG.setColor(backgroundColor);
 		dbG.fillRect(0, 0, pWidth, pHeight);
-		world.RenderWorld(dbG);
 	}
 
 	// Actual double buffer code
