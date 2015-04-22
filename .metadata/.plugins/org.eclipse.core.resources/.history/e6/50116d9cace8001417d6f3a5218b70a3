@@ -4,7 +4,7 @@ public class Llama
 {
 	// All possible states a llama can obtain
 	// Note that NIRVANA is not among these
-	public enum State { IDLE_STATE, FOOD_SEEK, EATING, AGGRESSIVE, ATTACKING, RUNNING_AWAY, RANDOM_WALK, STUNNED }
+	public enum State { IDLE_STATE, FOOD_SEEK, EATING, AGGRESSIVE, ATTACKING, RUNNING_AWAY, RANDOM_WALK }
 	
 	private GameWorld world;
 	private Gene[] genome;
@@ -87,8 +87,6 @@ public class Llama
 			case RUNNING_AWAY:
 				break;
 			case RANDOM_WALK:
-				break;
-			case STUNNED:
 				break;
 		}
 	}

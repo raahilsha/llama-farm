@@ -5,8 +5,8 @@ import java.awt.event.*;
 public class LlamaFarm extends JFrame implements WindowListener
 {
 	private GamePanel gp;
-	private int width = 1000;
-	private int height = 1000;
+	private int width = 750;
+	private int height = 750;
 	
 	public LlamaFarm()
 	{

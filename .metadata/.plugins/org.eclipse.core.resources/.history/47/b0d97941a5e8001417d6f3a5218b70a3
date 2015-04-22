@@ -15,8 +15,6 @@ public class GameWorld
 	private double obsRate;
 	private double hazRate;
 	
-	private int generation;
-	
 	// Constructor for GameWorld
 	public GameWorld(double a, double o, double h, int drain, int pw)
 	{
@@ -24,7 +22,6 @@ public class GameWorld
 		obsRate = o;
 		hazRate = h;
 		
-		generation = 0;
 		energyDrain = drain;
 		tileSize = pw / numTiles;
 		
@@ -64,8 +61,7 @@ public class GameWorld
 		}
 		else
 		{
-			createNewGeneration();
-			generation++;
+			createNewGeneration(); 
 			isRunningSimulation = true;
 		}
 	}
