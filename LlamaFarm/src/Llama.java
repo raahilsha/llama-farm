@@ -16,7 +16,6 @@ public class Llama
 	
 	private int xPos;
 	private int yPos;
-	private int numTiles;
 	
 	// Constructor for llama
 	public Llama(GameWorld gw, Gene[] g)
@@ -31,8 +30,8 @@ public class Llama
 		metabolismInd = g[3].getActivation();
 		styleInd = g[4].getActivation();
 
-		xPos = (int)(Math.random() * world.getNumTiles() * world.getTileSize());
-		yPos = (int)(Math.random() * world.getNumTiles() * world.getTileSize());
+		xPos = (int)(Math.random() * world.getNumTiles())  * world.getTileSize();
+		yPos = (int)(Math.random() * world.getNumTiles()) * world.getTileSize();
 	}
 	
 	// Renders Llama onto game panel based on its stylishness
@@ -51,7 +50,7 @@ public class Llama
 		else
 			img.setColor(new Color(255, 214, 0));
 		
-		img.fillOval(xPos + 2, yPos + 2, tileSize - 1, tileSize - 1);
+		img.fillOval(xPos, yPos, tileSize - 1, tileSize - 1);
 	}
 	
 	// Breeds one llama with other
@@ -116,6 +115,8 @@ public class Llama
 		{
 			die();
 		}
+		if (energy <= 0)
+			die();
 	}
 	
 	// Kills the current llama

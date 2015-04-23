@@ -3,7 +3,7 @@ import java.util.*;
 
 public class GameWorld
 {
-	private static int numTiles = 125;
+	private static int numTiles = 25;
 	private static int numLlamas = 100;
 	
 	private ArrayList<Llama> llamas;
@@ -88,6 +88,8 @@ public class GameWorld
 		if (isRunningSimulation)
 		{
 			ticksThisGen++;
+			
+			System.out.println("Generation " + this.generation + "-" + ticksThisGen + ": " + this.getGeneRepresentation()[4]);
 
 			if (llamas.size() <= numLlamas / 2)
 			{
