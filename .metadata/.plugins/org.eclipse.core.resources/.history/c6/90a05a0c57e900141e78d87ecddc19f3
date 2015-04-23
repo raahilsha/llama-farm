@@ -114,13 +114,8 @@ public class Llama
 		
 		if (styleInd < Math.random())
 		{
-			die();
+			world.removeLlama(this);
 		}
-	}
-	
-	public void die()
-	{
-		world.removeLlama(this);
 	}
 	
 	// Accessor for genome; used when mating

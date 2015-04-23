@@ -16,7 +16,6 @@ public class Llama
 	
 	private int xPos;
 	private int yPos;
-	private int numTiles;
 	
 	// Constructor for llama
 	public Llama(GameWorld gw, Gene[] g)
@@ -30,9 +29,6 @@ public class Llama
 		violenceInd = g[2].getActivation();
 		metabolismInd = g[3].getActivation();
 		styleInd = g[4].getActivation();
-
-		xPos = (int)(Math.random() * world.getNumTiles() * world.getTileSize());
-		yPos = (int)(Math.random() * world.getNumTiles() * world.getTileSize());
 	}
 	
 	// Renders Llama onto game panel
@@ -111,16 +107,6 @@ public class Llama
 			case STUNNED:
 				break;
 		}
-		
-		if (styleInd < Math.random())
-		{
-			die();
-		}
-	}
-	
-	public void die()
-	{
-		world.removeLlama(this);
 	}
 	
 	// Accessor for genome; used when mating

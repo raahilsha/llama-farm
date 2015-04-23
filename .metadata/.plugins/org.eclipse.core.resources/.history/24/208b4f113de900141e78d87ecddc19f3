@@ -14,9 +14,9 @@ public class Llama
 	
 	private State currentState;
 	
+	private int tileSize;
 	private int xPos;
 	private int yPos;
-	private int numTiles;
 	
 	// Constructor for llama
 	public Llama(GameWorld gw, Gene[] g)
@@ -30,13 +30,10 @@ public class Llama
 		violenceInd = g[2].getActivation();
 		metabolismInd = g[3].getActivation();
 		styleInd = g[4].getActivation();
-
-		xPos = (int)(Math.random() * world.getNumTiles() * world.getTileSize());
-		yPos = (int)(Math.random() * world.getNumTiles() * world.getTileSize());
 	}
 	
 	// Renders Llama onto game panel
-	public void renderLlama(Graphics img, int tileSize)
+	public void renderLlama(Graphics img)
 	{
 		if (styleInd < 0.2)
 			img.setColor(new Color(255, 128, 171));
@@ -90,7 +87,7 @@ public class Llama
 	}
 	
 	// Runs the Finite State Machine of Llama 
-	public void action()
+	public void action(int targetX, int targetY)
 	{
 		switch (currentState)
 		{
@@ -111,16 +108,6 @@ public class Llama
 			case STUNNED:
 				break;
 		}
-		
-		if (styleInd < Math.random())
-		{
-			die();
-		}
-	}
-	
-	public void die()
-	{
-		world.removeLlama(this);
 	}
 	
 	// Accessor for genome; used when mating

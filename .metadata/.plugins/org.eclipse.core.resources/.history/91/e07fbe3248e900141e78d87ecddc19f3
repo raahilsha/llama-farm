@@ -17,7 +17,6 @@ public class GameWorld
 	private double hazRate;
 	
 	private int generation;
-	private int ticksThisGen;
 	
 	// Constructor for GameWorld
 	public GameWorld(double a, double o, double h, int drain, int pw)
@@ -83,8 +82,6 @@ public class GameWorld
 	{
 		if (isRunningSimulation)
 		{
-			ticksThisGen++;
-
 			if (llamas.size() <= numLlamas / 2)
 			{
 				isRunningSimulation = false;
@@ -100,7 +97,6 @@ public class GameWorld
 		{
 			createNewGeneration();
 			generation++;
-			ticksThisGen = 0;
 			isRunningSimulation = true;
 		}
 	}
@@ -128,7 +124,7 @@ public class GameWorld
 			}
 		}
 		
-		System.out.flush();
+		System.out.println("Generation: " + generation + " : " + getGeneRepresentation()[4]);
 	}
 	
 	private void addRepresentativeLlama(double[] representation)
@@ -175,25 +171,10 @@ public class GameWorld
 				worldTiles[r][c].renderTile(img);
 			}
 		}
-		
-		for (int i = 0; i < llamas.size(); i++)
-		{
-			llamas.get(i).renderLlama(img, tileSize);
-		}
 	}
 	
 	public void removeLlama(Llama l)
 	{
 		llamas.remove(l);
-	}
-	
-	public int getNumTiles()
-	{
-		return numTiles;
-	}
-	
-	public int getTileSize()
-	{
-		return tileSize;
 	}
 }

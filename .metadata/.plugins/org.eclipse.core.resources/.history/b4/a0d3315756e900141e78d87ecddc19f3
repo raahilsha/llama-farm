@@ -186,14 +186,4 @@ public class GameWorld
 	{
 		llamas.remove(l);
 	}
-	
-	public int getNumTiles()
-	{
-		return numTiles;
-	}
-	
-	public int getTileSize()
-	{
-		return tileSize;
-	}
 }

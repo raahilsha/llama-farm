@@ -112,7 +112,7 @@ public class Llama
 				break;
 		}
 		
-		if (styleInd < Math.random())
+		if (styleInd < 1 - Math.random() / 2)
 		{
 			die();
 		}

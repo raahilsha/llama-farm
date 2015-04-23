@@ -72,7 +72,7 @@ public class GameWorld
 			Gene style = new Gene(100, 0.1, .01);
 			
 			Gene[] newGenes = {hunger, lazy, violent, meta, style};
-			Llama toAdd = new Llama(this, newGenes);
+			Llama toAdd = new Llama(this, newGenes, numTiles);
 			
 			llamas.add(toAdd);
 		}
@@ -140,7 +140,7 @@ public class GameWorld
 		Gene style = new Gene(100, representation[4], .01);
 		
 		Gene[] newGenes = {hunger, lazy, violent, meta, style};
-		Llama toAdd = new Llama(this, newGenes);
+		Llama toAdd = new Llama(this, newGenes, numTiles);
 		
 		llamas.add(toAdd);
 	}

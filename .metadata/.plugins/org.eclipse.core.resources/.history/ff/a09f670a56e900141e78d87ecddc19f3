@@ -84,7 +84,7 @@ public class GameWorld
 		if (isRunningSimulation)
 		{
 			ticksThisGen++;
-
+			System.out.println("Generation: " + generation + "-" + ticksThisGen + " : " + getGeneRepresentation()[4]);
 			if (llamas.size() <= numLlamas / 2)
 			{
 				isRunningSimulation = false;
@@ -175,25 +175,10 @@ public class GameWorld
 				worldTiles[r][c].renderTile(img);
 			}
 		}
-		
-		for (int i = 0; i < llamas.size(); i++)
-		{
-			llamas.get(i).renderLlama(img, tileSize);
-		}
 	}
 	
 	public void removeLlama(Llama l)
 	{
 		llamas.remove(l);
-	}
-	
-	public int getNumTiles()
-	{
-		return numTiles;
-	}
-	
-	public int getTileSize()
-	{
-		return tileSize;
 	}
 }

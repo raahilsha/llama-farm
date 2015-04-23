@@ -83,7 +83,7 @@ public class Llama
 		// Place all of the combined genes into new llamas
 		for (int i = 0; i < offspringCount; i++)
 		{
-			offspringLlamas[i] = new Llama(world, finishedChildrenT[i]);
+			offspringLlamas[i] = new Llama(world, finishedChildrenT[i], numTiles);
 		}
 		
 		return offspringLlamas;
@@ -114,13 +114,8 @@ public class Llama
 		
 		if (styleInd < Math.random())
 		{
-			die();
+			world.removeLlama(this);
 		}
-	}
-	
-	public void die()
-	{
-		world.removeLlama(this);
 	}
 	
 	// Accessor for genome; used when mating

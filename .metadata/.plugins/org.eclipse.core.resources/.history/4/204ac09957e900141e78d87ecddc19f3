@@ -8,7 +8,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private int pHeight;
 	private LlamaFarm mainGame;
 
-	private int framesPerSecond = 1000;
+	private int framesPerSecond = 60;
 	
 	// Used for double buffering
 	private Image dbImg;
