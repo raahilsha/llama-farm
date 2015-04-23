@@ -31,7 +31,7 @@ public class Tile
 				tileColor = new Color(0x795548);
 				break;
 			case FOOD:
-				tileColor = new Color(0x00E676);
+				tileColor = new Color(56, 142, 60);
 				break;
 			case HAZARD:
 				tileColor = new Color(0xFF3D00);

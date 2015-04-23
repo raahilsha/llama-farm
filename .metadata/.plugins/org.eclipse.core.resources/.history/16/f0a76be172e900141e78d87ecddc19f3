@@ -82,8 +82,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 
 			try
 			{
-				if (framesPerSecond > 0)
-					Thread.sleep(1000 / framesPerSecond); // This pauses current thread to wait until next frame
+				Thread.sleep(1000 / framesPerSecond); // This pauses current thread to wait until next frame
 			}
 			catch (InterruptedException ex)
 			{

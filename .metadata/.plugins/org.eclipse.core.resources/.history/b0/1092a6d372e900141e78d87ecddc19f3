@@ -8,7 +8,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private int pHeight;
 	private LlamaFarm mainGame;
 
-	private int framesPerSecond = -1;
+	private int framesPerSecond = 1000;
 	
 	// Used for double buffering
 	private Image dbImg;
@@ -82,8 +82,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 
 			try
 			{
-				if (framesPerSecond > 0)
-					Thread.sleep(1000 / framesPerSecond); // This pauses current thread to wait until next frame
+				Thread.sleep(1000 / framesPerSecond); // This pauses current thread to wait until next frame
 			}
 			catch (InterruptedException ex)
 			{
