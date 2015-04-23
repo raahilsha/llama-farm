@@ -20,22 +20,19 @@ public class GameWorld
 	private int ticksThisGen;
 	
 	// Constructor for GameWorld
-	public GameWorld(double a, double o, double h, int d, int pw)
+	public GameWorld(double a, double o, double h, int drain, int pw)
 	{
-		// Basic  world parameters
 		arability = a;
 		obsRate = o;
 		hazRate = h;
-		energyDrain = d;
 		
-		// Calculated world parameters
 		generation = 0;
+		energyDrain = drain;
 		tileSize = pw / numTiles;
 		
 		createInitialGeneration();
 		isRunningSimulation = true;
 		
-		// Loops through all the tiles and assigns them a type
 		worldTiles = new Tile[numTiles][numTiles];
 		for (int r = 0; r < numTiles; r++)
 		{
@@ -62,7 +59,6 @@ public class GameWorld
 		}
 	}
 	
-	// Used to first instantiate the llama list in Generation 1
 	private void createInitialGeneration()
 	{
 		llamas = new ArrayList<Llama>();
@@ -135,7 +131,6 @@ public class GameWorld
 		System.out.flush();
 	}
 	
-	// Adds llamas to the list based on the "representative" genes to balance llama population to even 50
 	private void addRepresentativeLlama(double[] representation)
 	{
 		Gene hunger = new Gene(100, representation[0], .01);
@@ -149,8 +144,7 @@ public class GameWorld
 		
 		llamas.add(toAdd);
 	}
-	
-	// Returns the "representative" values of the genes for the llama population
+
 	private double[] getGeneRepresentation()
 	{
 		double[] represent = new double[5];
@@ -188,19 +182,16 @@ public class GameWorld
 		}
 	}
 	
-	// Allows a llama to kill itself / remove itself from the world
 	public void removeLlama(Llama l)
 	{
 		llamas.remove(l);
 	}
 	
-	// Accessor for the number of tiles
 	public int getNumTiles()
 	{
 		return numTiles;
 	}
 	
-	// Accessor for tile size
 	public int getTileSize()
 	{
 		return tileSize;

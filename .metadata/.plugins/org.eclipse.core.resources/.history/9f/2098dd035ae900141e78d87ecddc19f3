@@ -35,7 +35,7 @@ public class Llama
 		yPos = (int)(Math.random() * world.getNumTiles() * world.getTileSize());
 	}
 	
-	// Renders Llama onto game panel based on its stylishness
+	// Renders Llama onto game panel
 	public void renderLlama(Graphics img, int tileSize)
 	{
 		if (styleInd < 0.2)
@@ -118,7 +118,6 @@ public class Llama
 		}
 	}
 	
-	// Kills the current llama
 	public void die()
 	{
 		world.removeLlama(this);
