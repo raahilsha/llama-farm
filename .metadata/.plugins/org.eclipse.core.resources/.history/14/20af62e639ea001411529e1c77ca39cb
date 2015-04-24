@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.*;
 
 public class Llama
 {
@@ -209,26 +208,10 @@ public class Llama
 			return true;
 		}
 		
-		ArrayList<int[]> possiblePaths = new ArrayList<int[]>();
-		int[] newThing = {xPos2 + 1, yPos2};
-		int[] newThing2 = {xPos2 - 1, yPos2};
-		int[] newThing3 = {xPos2, yPos2 + 1};
-		int[] newThing4 = {xPos2, yPos2 - 1};
-		possiblePaths.add(newThing);
-		possiblePaths.add(newThing2);
-		possiblePaths.add(newThing3);
-		possiblePaths.add(newThing4);
-		
-		while(possiblePaths.size() > 0)
-		{
-			int selection = (int)(Math.random() * possiblePaths.size());
-			int[] selectedPath = possiblePaths.remove(selection);
-			boolean worked = checkRecFood(worldMap, selectedPath[0], selectedPath[1], i - 1);
-			if (worked)
-				return true;
-		}
-		
-		return false;
+		return checkRecFood(worldMap, xPos2 + 1, yPos2, i - 1) ||
+				checkRecFood(worldMap, xPos2 - 1, yPos2, i - 1) ||
+				checkRecFood(worldMap, xPos2, yPos2 + 1, i - 1) ||
+				checkRecFood(worldMap, xPos2, yPos2 - 1, i - 1);
 	}
 	
 	private boolean checkIfStunned()
