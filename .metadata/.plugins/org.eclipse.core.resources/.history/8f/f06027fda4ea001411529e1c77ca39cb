@@ -4,7 +4,7 @@ import java.io.*;
 public class Parameters
 {
 	// Write experiment notes here to debug
-	public static String experiment_notes = "All values started at 0.1, few trees, stylishness affect diminished";
+	public static String experiment_notes = "All values started at 0.5, only 100 llamas";
 	
 	// Window Settings
 	public static int window_size = 1000; // Width and height of the game window. Recommend to keep constant
@@ -20,22 +20,22 @@ public class Parameters
 	
 	// Simulation Settings
 	public static int num_tiles = 125; // Number of tiles in world width and height. Should be a factor of window_size
-	public static int num_llamas = 1000; // Number of llamas in world. Should be a multiple of 4
+	public static int num_llamas = 100; // Number of llamas in world. Should be a multiple of 4
 	public static int num_generations = 2000; // Maximum number of generations
 	public static boolean debug = true; // Debug?
 	public static boolean debug_to_cmd = true; // Print stats to Console?
 	public static boolean debug_to_csv = true; // Print stats to CSV file?
 	
 	// Genetics Settings
-	public static double mutation_rate = 0.0; // Rate of mutation
-	public static int genome_length = 1000; // Length of each gene
+	public static double mutation_rate = 0.25; // Rate of mutation
+	public static int genome_length = 100; // Length of each gene
 	
 	// Initial Genome Settings
-	public static double hunger_init = 0.1; // Initial hunger probability
-	public static double lazy_init = 0.1; // Initial laziness probability
-	public static double violent_init = 0.1; // Initial violence probability
-	public static double meta_init = 0.1; // Initial metabolism probability
-	public static double style_init = 0.1; // Initial style probability
+	public static double hunger_init = 0.5; // Initial hunger probability
+	public static double lazy_init = 0.5; // Initial laziness probability
+	public static double violent_init = 0.5; // Initial violence probability
+	public static double meta_init = 0.5; // Initial metabolism probability
+	public static double style_init = 0.5; // Initial style probability
 	
 	// Color Palettes
 	public static Color[] style_colors = // Light pink -> dark purple values representing style
@@ -68,7 +68,7 @@ public class Parameters
 	public static double food_regain = 2000; // How much energy is regained by eating
 	public static double attack_loss = 200; // How much energy is lost when attacked
 	// Increase this to increase the chance of a llama being stunned when faced with a more stylish llama
-	public static double stylishness_multiplicity = 1;
+	public static double stylishness_multiplicity = 10;
 	
 	// Llama Timer Settings
 	public static int run_cooldown = 5; // How long to run away from a foe

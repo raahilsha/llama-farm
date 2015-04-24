@@ -73,7 +73,7 @@ public class Gene
 		for (int i = 0; i < strandLength; i++)
 		{
 			// Mutates strand 1 at a point if necessary
-			if (Math.random() < Parameters.mutation_rate)
+			if (Math.random() <0)// Parameters.mutation_rate)
 			{
 				if (strand1.charAt(i) == '1')
 					newStrand1 += "0";
@@ -84,7 +84,7 @@ public class Gene
 				newStrand1 += strand1.charAt(i);
 			
 			// Mutates strand 2 at a point if necessary
-			if (Math.random() < Parameters.mutation_rate)
+			if (Math.random() <0)// Parameters.mutation_rate)
 			{
 				if (strand2.charAt(i) == '1')
 					newStrand2 += "0";

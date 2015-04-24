@@ -7,6 +7,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	// Used to track UI changes - doesn't matter for this project
 	private static final long serialVersionUID = -886995235406571190L;
 
+	private LlamaFarm mainGame;
 	private int framesPerSecond = Parameters.frames_per_second;
 	
 	// Used for double buffering
@@ -21,8 +22,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private GameWorld world;
 
 	// Instantiates game panel
-	public GamePanel()
+	public GamePanel(LlamaFarm mg)
 	{
+		mainGame = mg;
 		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(Parameters.window_size, Parameters.window_size));
 		setFocusable(true);

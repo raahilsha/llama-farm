@@ -63,11 +63,13 @@ public class Llama
 		Gene[] otherGenome = other.getGenome();
 		
 		// Both llamas undergo meiosis
+		System.out.print("Before:" + myGenome[4].getActivation());
 		for (int i = 0; i < numGenes; i++)
 		{
 			otherGenome[i].meiosis();
 			myGenome[i].meiosis();
 		}
+		System.out.println(" " + myGenome[4].getActivation());
 		
 		Llama[] offspringLlamas = new Llama[offspringCount];
 

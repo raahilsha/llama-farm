@@ -76,9 +76,9 @@ public class Gene
 			if (Math.random() < Parameters.mutation_rate)
 			{
 				if (strand1.charAt(i) == '1')
-					newStrand1 += "0";
-				else
 					newStrand1 += "1";
+				else
+					newStrand1 += "0";
 			}
 			else
 				newStrand1 += strand1.charAt(i);
@@ -87,9 +87,9 @@ public class Gene
 			if (Math.random() < Parameters.mutation_rate)
 			{
 				if (strand2.charAt(i) == '1')
-					newStrand2 += "0";
-				else
 					newStrand2 += "1";
+				else
+					newStrand2 += "0";
 			}
 			else
 				newStrand2 += strand2.charAt(i);
