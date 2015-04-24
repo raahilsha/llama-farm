@@ -75,22 +75,14 @@ public class Gene
 			// Mutates strand 1 at a point if necessary
 			if (Math.random() < mutationRate)
 			{
-				if (strand1.charAt(i) == '1')
-					newStrand1 += '0';
-				else
-					newStrand1 += '1';
+				newStrand1 += (int)(Math.random() * 2);
 			}
 			else
 				newStrand1 += strand1.charAt(i);
 			
 			// Mutates strand 2 at a point if necessary
 			if (Math.random() < mutationRate)
-			{
-				if (strand2.charAt(i) == '1')
-					newStrand2 += '0';
-				else
-					newStrand2 += '1';
-			}
+				newStrand2 += (int)(Math.random() * 2);
 			else
 				newStrand2 += strand2.charAt(i);
 			

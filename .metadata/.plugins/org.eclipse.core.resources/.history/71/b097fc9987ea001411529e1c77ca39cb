@@ -20,7 +20,7 @@ public class GameWorld
 	
 	private int generation;
 	private int ticksThisGen;
-	private double[] lastGenReps;
+	private int ticksLastGen;
 	
 	private PrintWriter out;
 	
@@ -59,7 +59,7 @@ public class GameWorld
 		// Loops through all the tiles and assigns them a type
 		worldTiles = new Tile[numTiles][numTiles];
 		retile();
-		lastGenReps = this.getGeneRepresentation();
+		printGenerationStats();
 	}
 	
 	// Used to first instantiate the llama list in Generation 1
@@ -113,8 +113,8 @@ public class GameWorld
 				out.close();
 				System.exit(0);
 			}
-			printGenerationStats(lastGenReps);
-			lastGenReps = this.getGeneRepresentation();
+			printGenerationStats();
+			ticksLastGen = ticksThisGen;
 			ticksThisGen = 0;
 			isRunningSimulation = true;
 		}
@@ -280,11 +280,11 @@ public class GameWorld
 	}
 	
 	// Prints statistics to the command line / a file
-	public void printGenerationStats(double[] repGenes)
+	public void printGenerationStats()
 	{
 		if (!Parameters.debug)
 			return;
-		// double[] repGenes = getGeneRepresentation();
+		double[] repGenes = getGeneRepresentation();
 		if (Parameters.debug_to_cmd)
 		{
 			System.out.println("Ticks this generation: " + ticksThisGen);
@@ -299,7 +299,7 @@ public class GameWorld
 		}
 		if (Parameters.debug_to_csv)
 		{
-			out.println(generation + "," + ticksThisGen + "," + repGenes[0] + "," + repGenes[1] + "," + repGenes[2] + "," + repGenes[3] + "," + repGenes[4]);
+			out.println(generation + "," + ticksLastGen + "," + repGenes[0] + "," + repGenes[1] + "," + repGenes[2] + "," + repGenes[3] + "," + repGenes[4]);
 			out.flush();
 		}
 	}
