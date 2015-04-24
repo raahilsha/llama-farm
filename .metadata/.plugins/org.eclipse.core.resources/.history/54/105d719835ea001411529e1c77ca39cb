@@ -50,11 +50,11 @@ public class GameWorld
 		
 		for (int i = 0; i < numLlamas; i++)
 		{
-			Gene hunger = new Gene(100, 0.1, .1);
-			Gene lazy = new Gene(100, 0.7, .1);
-			Gene violent = new Gene(100, 0.1, .1);
-			Gene meta = new Gene(100, 0.1, .1);
-			Gene style = new Gene(100, 0.1, .1);
+			Gene hunger = new Gene(100, 0.1, .01);
+			Gene lazy = new Gene(100, 0.7, .01);
+			Gene violent = new Gene(100, 0.1, .01);
+			Gene meta = new Gene(100, 0.1, .01);
+			Gene style = new Gene(100, 0.1, .01);
 			
 			Gene[] newGenes = {hunger, lazy, violent, meta, style};
 			Llama toAdd = new Llama(this, newGenes);

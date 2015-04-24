@@ -40,7 +40,6 @@ public class GameWorld
 		// Loops through all the tiles and assigns them a type
 		worldTiles = new Tile[numTiles][numTiles];
 		retile();
-		printGenerationStats();
 	}
 	
 	// Used to first instantiate the llama list in Generation 1
@@ -50,11 +49,11 @@ public class GameWorld
 		
 		for (int i = 0; i < numLlamas; i++)
 		{
-			Gene hunger = new Gene(100, 0.1, .1);
-			Gene lazy = new Gene(100, 0.7, .1);
-			Gene violent = new Gene(100, 0.1, .1);
-			Gene meta = new Gene(100, 0.1, .1);
-			Gene style = new Gene(100, 0.1, .1);
+			Gene hunger = new Gene(100, 0.1, .01);
+			Gene lazy = new Gene(100, 0.1, .01);
+			Gene violent = new Gene(100, 0.1, .01);
+			Gene meta = new Gene(100, 0.1, .01);
+			Gene style = new Gene(100, 0.1, .01);
 			
 			Gene[] newGenes = {hunger, lazy, violent, meta, style};
 			Llama toAdd = new Llama(this, newGenes);
@@ -88,7 +87,6 @@ public class GameWorld
 			generation++;
 			ticksThisGen = 0;
 			isRunningSimulation = true;
-			printGenerationStats();
 		}
 	}
 	
@@ -245,17 +243,5 @@ public class GameWorld
 	public Llama llamaAtLoc(int xPos2, int yPos2)
 	{
 		return llamaLocs[yPos2][xPos2];
-	}
-	
-	public void printGenerationStats()
-	{
-		double[] repGenes = getGeneRepresentation();
-		System.out.println("Generation " + generation + " stats");
-		System.out.println("--------------------");
-		System.out.println("Hunger Drive: " + repGenes[0]);
-		System.out.println("Laziness: " + repGenes[1]);
-		System.out.println("Violence: " + repGenes[2]);
-		System.out.println("Metabolism: " + repGenes[3]);
-		System.out.println("Stylishness: " + repGenes[4]);
 	}
 }

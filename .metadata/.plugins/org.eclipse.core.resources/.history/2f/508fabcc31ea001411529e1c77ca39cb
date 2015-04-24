@@ -46,7 +46,7 @@ public class Llama
 		metabolismInd = g[3].getActivation();
 		styleInd = g[4].getActivation();
 		
-		energy = 1000;
+		energy = 10000000;
 
 		xPos = (int)(Math.random() * world.getNumTiles());
 		yPos = (int)(Math.random() * world.getNumTiles());
@@ -205,6 +205,7 @@ public class Llama
 		{
 			xTarget = xPos2;
 			yTarget = yPos2;
+			System.out.println(xTarget + " " + yTarget);
 			return true;
 		}
 		
@@ -272,12 +273,12 @@ public class Llama
 	{
 		if (xPos < xTarget)
 			xPos++;
-		else if (xPos > xTarget)
+		if (xPos > xTarget)
 			xPos--;
 		if (yPos < yTarget)
-			yPos++;
-		else if (yPos > yTarget)
-			yPos--;
+			xPos++;
+		if (yPos > yTarget)
+			xPos--;
 	}
 
 	// Kills the current llama

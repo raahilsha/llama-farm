@@ -27,7 +27,7 @@ public class Llama
 	
 	private State currentState;
 	private int cooldown;
-	public int xTarget, yTarget;
+	private int xTarget, yTarget;
 	
 	private int xPos;
 	private int yPos;
@@ -205,6 +205,7 @@ public class Llama
 		{
 			xTarget = xPos2;
 			yTarget = yPos2;
+			System.out.println(xTarget + " " + yTarget);
 			return true;
 		}
 		
@@ -272,12 +273,12 @@ public class Llama
 	{
 		if (xPos < xTarget)
 			xPos++;
-		else if (xPos > xTarget)
+		if (xPos > xTarget)
 			xPos--;
 		if (yPos < yTarget)
-			yPos++;
-		else if (yPos > yTarget)
-			yPos--;
+			xPos++;
+		if (yPos > yTarget)
+			xPos--;
 	}
 
 	// Kills the current llama

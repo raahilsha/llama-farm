@@ -27,7 +27,7 @@ public class Llama
 	
 	private State currentState;
 	private int cooldown;
-	public int xTarget, yTarget;
+	private int xTarget, yTarget;
 	
 	private int xPos;
 	private int yPos;
@@ -232,8 +232,8 @@ public class Llama
 		
 		while (outOfBounds(world.getMap(), newxPos, newyPos))
 		{
-			newxPos = ((int)(Math.random() * 3)) - 1 + xPos;
-			newyPos = ((int)(Math.random() * 3)) - 1 + yPos;
+			newxPos = (int)(Math.random() * 3) - 1 + xPos;
+			newyPos = (int)(Math.random() * 3) - 1 + yPos;
 		}
 		
 		xPos = newxPos;
@@ -265,19 +265,19 @@ public class Llama
 	
 	private boolean outOfBounds(Tile[][] worldMap, int xPos2, int yPos2)
 	{
-		return xPos2 < 0 || yPos2 < 0 || xPos2 >= worldMap.length || yPos2 >= worldMap.length;
+		return xPos2 < 0 || yPos2 < 0 || xPos2 >= worldMap[0].length || yPos2 >= worldMap.length;
 	}
 	
 	private void moveTowardsTarget()
 	{
 		if (xPos < xTarget)
 			xPos++;
-		else if (xPos > xTarget)
+		if (xPos > xTarget)
 			xPos--;
 		if (yPos < yTarget)
-			yPos++;
-		else if (yPos > yTarget)
-			yPos--;
+			xPos++;
+		if (yPos > yTarget)
+			xPos--;
 	}
 
 	// Kills the current llama
@@ -311,29 +311,5 @@ public class Llama
 	public int getY()
 	{
 		return yPos;
-	}
-	
-	public String parseState()
-	{
-		switch (currentState)
-		{
-			case IDLE_STATE:
-				return "Idle";
-			case FOOD_SEEK:
-				return "Seeking Food";
-			case EATING:
-				return "Eating Food";
-			case AGGRESSIVE:
-				return "Aggressive";
-			case ATTACKING:
-				return "Attacking";
-			case RUNNING_AWAY:
-				return "Running";
-			case RANDOM_WALK:
-				return "Random Walk";
-			case STUNNED:
-				return "Stunned";
-		}
-		return "State not found";
 	}
 }

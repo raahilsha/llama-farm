@@ -27,7 +27,6 @@ public class Llama
 	
 	private State currentState;
 	private int cooldown;
-	public int xTarget, yTarget;
 	
 	private int xPos;
 	private int yPos;
@@ -109,10 +108,8 @@ public class Llama
 				idleAction();
 				break;
 			case FOOD_SEEK:
-				foodSeekAction();
 				break;
 			case EATING:
-				eatAction();
 				break;
 			case AGGRESSIVE:
 				break;
@@ -147,17 +144,6 @@ public class Llama
 		cooldown--;
 	}
 	
-	private void eatAction()
-	{
-		if (cooldown <= 0)
-		{
-			world.getMap()[yPos][xPos].changeTile(Tile.TileTypes.SOIL);
-			currentState = State.IDLE_STATE;
-			energy += 200;
-		}
-		cooldown--;
-	}
-	
 	private void randWalkAction()
 	{
 		if (checkIfStunned())
@@ -169,49 +155,20 @@ public class Llama
 		}
 		if (Math.random() < violenceInd)
 		{
-			// currentState = State.AGGRESSIVE;
+			currentState = State.AGGRESSIVE;
 			return;
 		}
 		
-		makeRandomMove();
-	}
-	
-	private void foodSeekAction()
-	{
-		Tile[][] worldMap = world.getMap();
-		if (worldMap[yPos][xPos].getType() == Tile.TileTypes.FOOD)
+		int newxPos = -1, newyPos = -1;
+		
+		while (outOfBounds(world.getMap(), newxPos, newyPos))
 		{
-			cooldown = 5;
-			currentState = State.EATING;
-			return;
-		}
-		if (checkRecFood(worldMap, xPos, yPos, 5))
-		{
-			moveTowardsTarget();
-		}
-		else
-		{
-			makeRandomMove();
-		}
-	}
-	
-	private boolean checkRecFood(Tile[][] worldMap, int xPos2, int yPos2, int i)
-	{
-		if (i <= 0)
-			return false;
-		if (outOfBounds(worldMap, xPos2, yPos2))
-			return false;
-		if (worldMap[yPos2][xPos2].getType() == Tile.TileTypes.FOOD)
-		{
-			xTarget = xPos2;
-			yTarget = yPos2;
-			return true;
+			newxPos = (int)(Math.random() * 3) - 1 + xPos;
+			newyPos = (int)(Math.random() * 3) - 1 + yPos;
 		}
 		
-		return checkRecFood(worldMap, xPos2 + 1, yPos2, i - 1) ||
-				checkRecFood(worldMap, xPos2 - 1, yPos2, i - 1) ||
-				checkRecFood(worldMap, xPos2, yPos2 + 1, i - 1) ||
-				checkRecFood(worldMap, xPos2, yPos2 - 1, i - 1);
+		xPos = newxPos;
+		yPos = newyPos;
 	}
 	
 	private boolean checkIfStunned()
@@ -224,20 +181,6 @@ public class Llama
 			return true;
 		}
 		return false;
-	}
-	
-	public void makeRandomMove()
-	{
-		int newxPos = -1, newyPos = -1;
-		
-		while (outOfBounds(world.getMap(), newxPos, newyPos))
-		{
-			newxPos = ((int)(Math.random() * 3)) - 1 + xPos;
-			newyPos = ((int)(Math.random() * 3)) - 1 + yPos;
-		}
-		
-		xPos = newxPos;
-		yPos = newyPos;
 	}
 	
 	private boolean checkRecStunned(Tile[][] worldMap, int xPos2, int yPos2, int i)
@@ -265,19 +208,7 @@ public class Llama
 	
 	private boolean outOfBounds(Tile[][] worldMap, int xPos2, int yPos2)
 	{
-		return xPos2 < 0 || yPos2 < 0 || xPos2 >= worldMap.length || yPos2 >= worldMap.length;
-	}
-	
-	private void moveTowardsTarget()
-	{
-		if (xPos < xTarget)
-			xPos++;
-		else if (xPos > xTarget)
-			xPos--;
-		if (yPos < yTarget)
-			yPos++;
-		else if (yPos > yTarget)
-			yPos--;
+		return xPos2 < 0 || yPos2 < 0 || xPos2 >= worldMap[0].length || yPos2 >= worldMap.length;
 	}
 
 	// Kills the current llama
@@ -311,29 +242,5 @@ public class Llama
 	public int getY()
 	{
 		return yPos;
-	}
-	
-	public String parseState()
-	{
-		switch (currentState)
-		{
-			case IDLE_STATE:
-				return "Idle";
-			case FOOD_SEEK:
-				return "Seeking Food";
-			case EATING:
-				return "Eating Food";
-			case AGGRESSIVE:
-				return "Aggressive";
-			case ATTACKING:
-				return "Attacking";
-			case RUNNING_AWAY:
-				return "Running";
-			case RANDOM_WALK:
-				return "Random Walk";
-			case STUNNED:
-				return "Stunned";
-		}
-		return "State not found";
 	}
 }

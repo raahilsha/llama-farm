@@ -20,7 +20,7 @@ public class Tile
 		changeTile(c);
 	}
 	
-	// Changes the type of tile
+	// Changes the color of tile
 	public void changeTile(TileTypes c)
 	{
 		ttype = c;
