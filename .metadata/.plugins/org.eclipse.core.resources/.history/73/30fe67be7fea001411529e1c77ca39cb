@@ -106,7 +106,7 @@ public class GameWorld
 		{
 			createNewGeneration();
 			generation++;
-			if (generation > Parameters.num_generations)
+			if (generation > Parameters.max_generations)
 			{
 				out.flush();
 				out.close();

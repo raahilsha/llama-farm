@@ -446,8 +446,6 @@ public class Llama
 		if (Math.random() < this.violenceInd)
 		{
 			currentState = State.RUNNING_AWAY;
-			xTarget = other.getX();
-			yTarget = other.getY();
 			cooldown = Parameters.run_cooldown;
         }
 		else

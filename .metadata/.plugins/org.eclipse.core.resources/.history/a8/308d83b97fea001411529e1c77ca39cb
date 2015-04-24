@@ -106,12 +106,6 @@ public class GameWorld
 		{
 			createNewGeneration();
 			generation++;
-			if (generation > Parameters.num_generations)
-			{
-				out.flush();
-				out.close();
-				System.exit(0);
-			}
 			printGenerationStats();
 			ticksThisGen = 0;
 			isRunningSimulation = true;

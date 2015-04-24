@@ -27,7 +27,7 @@ public class Parameters
 	public static boolean debug_to_csv = true; // Print stats to CSV file?
 	
 	// Genetics Settings
-	public static double mutation_rate = 0.1; // Rate of mutation
+	public static double mutation_rate = 0.01; // Rate of mutation
 	public static int genome_length = 100; // Length of each gene
 	
 	// Initial Genome Settings

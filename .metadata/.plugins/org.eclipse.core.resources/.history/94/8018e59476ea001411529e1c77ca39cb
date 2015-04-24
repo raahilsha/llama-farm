@@ -106,12 +106,6 @@ public class GameWorld
 		{
 			createNewGeneration();
 			generation++;
-			if (generation > Parameters.num_generations)
-			{
-				out.flush();
-				out.close();
-				System.exit(0);
-			}
 			printGenerationStats();
 			ticksThisGen = 0;
 			isRunningSimulation = true;
@@ -297,6 +291,7 @@ public class GameWorld
 		}
 		if (Parameters.debug_to_csv)
 		{
+			out.println("Generation,Hunger,Laziness,Violence,Metabolism,Style");
 			out.println(generation + "," + repGenes[0] + "," + repGenes[1] + "," + repGenes[2] + "," + repGenes[3] + "," + repGenes[4]);
 			out.flush();
 		}

@@ -1,11 +1,8 @@
 import java.awt.Color;
-import java.io.*;
+
 
 public class Parameters
 {
-	// Write experiment notes here to debug
-	public static String experiment_notes = "Exceptionally high stylishness multiplicity and mutation rate";
-	
 	// Window Settings
 	public static int window_size = 1000; // Width and height of the game window. Recommend to keep constant
 	public static int frames_per_second = -1; // FPS of simulation. Set to negative value to remove frame limiter
@@ -21,13 +18,11 @@ public class Parameters
 	// Simulation Settings
 	public static int num_tiles = 125; // Number of tiles in world width and height. Should be a factor of window_size
 	public static int num_llamas = 1000; // Number of llamas in world. Should be a multiple of 4
-	public static int num_generations = 2000; // Maximum number of generations
 	public static boolean debug = true; // Debug?
-	public static boolean debug_to_cmd = true; // Print stats to Console?
-	public static boolean debug_to_csv = true; // Print stats to CSV file?
+	public static boolean debug_to_cmd = true; // Print stats to Console or to a CSV file
 	
 	// Genetics Settings
-	public static double mutation_rate = 0.1; // Rate of mutation
+	public static double mutation_rate = 0.01; // Rate of mutation
 	public static int genome_length = 100; // Length of each gene
 	
 	// Initial Genome Settings
@@ -74,51 +69,4 @@ public class Parameters
 	public static int run_cooldown = 5; // How long to run away from a foe
 	public static int stun_timer = 10; // How long to stay stunned
 	public static int eating_timer = 5; // How long to spend eating
-	
-	// Prints all parameters to a file
-	public static void print_params(long time)
-	{
-		PrintWriter out = null;
-		try
-		{
-			out = new PrintWriter(new FileWriter(new File("Experiment_" + time + "_info.csv")));
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			System.exit(0);
-		}
-		// Have to do this manually since everything in parameters is static
-		out.println("Experiment at time " + time);
-		out.println("------------------------------");
-		out.println("experiment_notes: " + experiment_notes);
-		out.println("window_size: " + window_size);
-		out.println("frames_per_second: " + frames_per_second);
-		out.println("world_arability: " + world_arability);
-		out.println("world_obsrate: " + world_obsrate);
-		out.println("world_hazrate: " + world_hazrate);
-		out.println("energy_loss: " + energy_loss);
-		out.println("num_tiles: " + num_tiles);
-		out.println("num_llamas: " + num_llamas);
-		out.println("num_generations: " + num_generations);
-		out.println("mutation_rate: " + mutation_rate);
-		out.println("genome_length: " + genome_length);
-		out.println("hunger_init: " + hunger_init);
-		out.println("lazy_init: " + lazy_init);
-		out.println("violent_init: " + violent_init);
-		out.println("meta_init: " + meta_init);
-		out.println("style_init: " + style_init);
-		out.println("energy_init: " + energy_init);
-		out.println("idle_regain: " + idle_regain);
-		out.println("aggressive_loss: " + aggressive_loss);
-		out.println("search_radius: " + search_radius);
-		out.println("food_regain: " + food_regain);
-		out.println("attack_loss: " + attack_loss);
-		out.println("stylishness_multiplicity: " + stylishness_multiplicity);
-		out.println("run_cooldown: " + run_cooldown);
-		out.println("stun_timer: " + stun_timer);
-		out.println("eating_timer: " + eating_timer);
-		out.flush();
-		out.close();
-	}
 }

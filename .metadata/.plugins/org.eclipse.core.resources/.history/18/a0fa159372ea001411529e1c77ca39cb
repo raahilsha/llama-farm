@@ -43,14 +43,11 @@ public class GameWorld
 		{
 			try
 			{
-				long time = System.currentTimeMillis();
-				out = new PrintWriter(new FileWriter(new File("Experiment_" + time + ".txt")));
-				Parameters.print_params(time);
+				out = new PrintWriter(new FileWriter("Experiment.csv"));
 			}
 			catch (IOException e)
 			{
 				e.printStackTrace();
-				System.exit(0);
 			}
 			out.println("Generation,Hunger,Violence,Laziness,Metabolism,Style");
 		}
@@ -106,12 +103,6 @@ public class GameWorld
 		{
 			createNewGeneration();
 			generation++;
-			if (generation > Parameters.num_generations)
-			{
-				out.flush();
-				out.close();
-				System.exit(0);
-			}
 			printGenerationStats();
 			ticksThisGen = 0;
 			isRunningSimulation = true;
@@ -297,8 +288,8 @@ public class GameWorld
 		}
 		if (Parameters.debug_to_csv)
 		{
+			out.println("Generation,Hunger,Laziness,Violence,Metabolism,Style");
 			out.println(generation + "," + repGenes[0] + "," + repGenes[1] + "," + repGenes[2] + "," + repGenes[3] + "," + repGenes[4]);
-			out.flush();
 		}
 	}
 }

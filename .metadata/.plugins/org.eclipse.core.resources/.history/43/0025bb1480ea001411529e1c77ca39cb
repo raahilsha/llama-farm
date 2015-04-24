@@ -4,7 +4,7 @@ import java.io.*;
 public class Parameters
 {
 	// Write experiment notes here to debug
-	public static String experiment_notes = "Exceptionally high stylishness multiplicity and mutation rate";
+	public static String experiment_notes = "Exceptionally high stylishness multiplicity";
 	
 	// Window Settings
 	public static int window_size = 1000; // Width and height of the game window. Recommend to keep constant
@@ -27,7 +27,7 @@ public class Parameters
 	public static boolean debug_to_csv = true; // Print stats to CSV file?
 	
 	// Genetics Settings
-	public static double mutation_rate = 0.1; // Rate of mutation
+	public static double mutation_rate = 0.01; // Rate of mutation
 	public static int genome_length = 100; // Length of each gene
 	
 	// Initial Genome Settings

@@ -24,7 +24,7 @@ public class GameWorld
 	private PrintWriter out;
 	
 	// Constructor for GameWorld
-	public GameWorld(double a, double o, double h, double d, int pw)
+	public GameWorld(double a, double o, double h, double d, int pw) throws IOException
 	{
 		// Basic  world parameters
 		arability = a;
@@ -39,21 +39,7 @@ public class GameWorld
 		
 		createInitialGeneration();
 		isRunningSimulation = true;
-		if (Parameters.debug_to_csv)
-		{
-			try
-			{
-				long time = System.currentTimeMillis();
-				out = new PrintWriter(new FileWriter(new File("Experiment_" + time + ".txt")));
-				Parameters.print_params(time);
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-				System.exit(0);
-			}
-			out.println("Generation,Hunger,Violence,Laziness,Metabolism,Style");
-		}
+		out = new PrintWriter(new FileWriter("Experiment.csv"));
 		
 		// Loops through all the tiles and assigns them a type
 		worldTiles = new Tile[numTiles][numTiles];
@@ -82,7 +68,7 @@ public class GameWorld
 	}
 
 	// Runs every frame and decides to create new generation if necessary
-	public void Tick()
+	public void Tick() throws IOException
 	{
 		if (isRunningSimulation)
 		{
@@ -106,12 +92,6 @@ public class GameWorld
 		{
 			createNewGeneration();
 			generation++;
-			if (generation > Parameters.num_generations)
-			{
-				out.flush();
-				out.close();
-				System.exit(0);
-			}
 			printGenerationStats();
 			ticksThisGen = 0;
 			isRunningSimulation = true;
@@ -278,7 +258,7 @@ public class GameWorld
 	}
 	
 	// Prints statistics to the command line / a file
-	public void printGenerationStats()
+	public void printGenerationStats() throws IOException
 	{
 		if (!Parameters.debug)
 			return;
@@ -297,8 +277,6 @@ public class GameWorld
 		}
 		if (Parameters.debug_to_csv)
 		{
-			out.println(generation + "," + repGenes[0] + "," + repGenes[1] + "," + repGenes[2] + "," + repGenes[3] + "," + repGenes[4]);
-			out.flush();
 		}
 	}
 }

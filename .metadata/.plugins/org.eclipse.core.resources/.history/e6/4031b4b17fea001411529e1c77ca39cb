@@ -4,7 +4,7 @@ import java.io.*;
 public class Parameters
 {
 	// Write experiment notes here to debug
-	public static String experiment_notes = "Exceptionally high stylishness multiplicity and mutation rate";
+	public static String experiment_notes = "Exceptionally high stylishness multiplicity";
 	
 	// Window Settings
 	public static int window_size = 1000; // Width and height of the game window. Recommend to keep constant
@@ -21,13 +21,12 @@ public class Parameters
 	// Simulation Settings
 	public static int num_tiles = 125; // Number of tiles in world width and height. Should be a factor of window_size
 	public static int num_llamas = 1000; // Number of llamas in world. Should be a multiple of 4
-	public static int num_generations = 2000; // Maximum number of generations
 	public static boolean debug = true; // Debug?
 	public static boolean debug_to_cmd = true; // Print stats to Console?
 	public static boolean debug_to_csv = true; // Print stats to CSV file?
 	
 	// Genetics Settings
-	public static double mutation_rate = 0.1; // Rate of mutation
+	public static double mutation_rate = 0.01; // Rate of mutation
 	public static int genome_length = 100; // Length of each gene
 	
 	// Initial Genome Settings
@@ -100,7 +99,6 @@ public class Parameters
 		out.println("energy_loss: " + energy_loss);
 		out.println("num_tiles: " + num_tiles);
 		out.println("num_llamas: " + num_llamas);
-		out.println("num_generations: " + num_generations);
 		out.println("mutation_rate: " + mutation_rate);
 		out.println("genome_length: " + genome_length);
 		out.println("hunger_init: " + hunger_init);

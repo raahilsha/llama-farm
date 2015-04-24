@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.util.*;
-import java.io.*;
 
 public class GameWorld
 {
@@ -21,8 +20,6 @@ public class GameWorld
 	private int generation;
 	private int ticksThisGen;
 	
-	private PrintWriter out;
-	
 	// Constructor for GameWorld
 	public GameWorld(double a, double o, double h, double d, int pw)
 	{
@@ -39,21 +36,6 @@ public class GameWorld
 		
 		createInitialGeneration();
 		isRunningSimulation = true;
-		if (Parameters.debug_to_csv)
-		{
-			try
-			{
-				long time = System.currentTimeMillis();
-				out = new PrintWriter(new FileWriter(new File("Experiment_" + time + ".txt")));
-				Parameters.print_params(time);
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-				System.exit(0);
-			}
-			out.println("Generation,Hunger,Violence,Laziness,Metabolism,Style");
-		}
 		
 		// Loops through all the tiles and assigns them a type
 		worldTiles = new Tile[numTiles][numTiles];
@@ -106,12 +88,6 @@ public class GameWorld
 		{
 			createNewGeneration();
 			generation++;
-			if (generation > Parameters.num_generations)
-			{
-				out.flush();
-				out.close();
-				System.exit(0);
-			}
 			printGenerationStats();
 			ticksThisGen = 0;
 			isRunningSimulation = true;
@@ -294,11 +270,6 @@ public class GameWorld
 			System.out.println("Violence: " + repGenes[2]);
 			System.out.println("Metabolism: " + repGenes[3]);
 			System.out.println("Stylishness: " + repGenes[4]);
-		}
-		if (Parameters.debug_to_csv)
-		{
-			out.println(generation + "," + repGenes[0] + "," + repGenes[1] + "," + repGenes[2] + "," + repGenes[3] + "," + repGenes[4]);
-			out.flush();
 		}
 	}
 }
