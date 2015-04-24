@@ -63,6 +63,18 @@ public class Llama
 			img.setColor(styleColors[(int)(styleInd * styleColors.length)]);
 		
 		img.fillOval(xPos * world.getTileSize(), yPos * world.getTileSize(), tileSize - 1, tileSize - 1);
+		
+		if (currentState == State.STUNNED)
+		{
+			img.setColor(Color.yellow);
+			img.fillRect(xPos * world.getTileSize() + 2, yPos * world.getTileSize() + 2, tileSize / 3, tileSize / 3);
+		}
+		
+		if (currentState == State.AGGRESSIVE)
+		{
+			img.setColor(Color.red);
+			img.fillRect(xPos * world.getTileSize() + 2 + tileSize / 3, yPos * world.getTileSize() + 2 + tileSize / 3, tileSize / 3, tileSize / 3);
+		}
 	}
 	
 	// Breeds one llama with other
@@ -139,7 +151,7 @@ public class Llama
 	
 	private void idleAction()
 	{
-		energy += world.getEnergyUse() * .75;
+		energy += world.getEnergyUse() * .25;
 		if (Math.random() > 1 - (1 - lazinessInd) / 4)
 		{
 			currentState = State.RANDOM_WALK;
@@ -148,7 +160,7 @@ public class Llama
 	
 	private void stunAction()
 	{
-		energy += world.getEnergyUse() * .75;
+		energy -= world.getEnergyUse();
 		if (cooldown <= 0)
 			currentState = State.IDLE_STATE;
 		cooldown--;
@@ -243,7 +255,7 @@ public class Llama
 		{
 			world.getMap()[yPos][xPos].changeTile(Tile.TileTypes.SOIL);
 			currentState = State.IDLE_STATE;
-			energy += 200;
+			energy += 2000;
 		}
 		cooldown--;
 	}
@@ -329,7 +341,7 @@ public class Llama
 		if (checkRecStunned(worldMap, xPos, yPos, 5))
 		{
 			currentState = State.STUNNED;
-			cooldown = 5;
+			cooldown = 10;
 			return true;
 		}
 		return false;

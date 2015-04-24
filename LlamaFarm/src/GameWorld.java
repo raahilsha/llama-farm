@@ -4,7 +4,7 @@ import java.util.*;
 public class GameWorld
 {
 	private static int numTiles = 125;
-	private static int numLlamas = 100;
+	private static int numLlamas = 1000;
 	
 	private ArrayList<Llama> llamas;
 	private boolean isRunningSimulation;
@@ -50,11 +50,11 @@ public class GameWorld
 		
 		for (int i = 0; i < numLlamas; i++)
 		{
-			Gene hunger = new Gene(100, 0.5, .1);
-			Gene lazy = new Gene(100, 0.5, .1);
-			Gene violent = new Gene(100, 0.5, .1);
-			Gene meta = new Gene(100, 0.5, .1);
-			Gene style = new Gene(100, 0.5, .1);
+			Gene hunger = new Gene(100, 0.01, .0);
+			Gene lazy = new Gene(100, 0.0, .0);
+			Gene violent = new Gene(100, 0.5, .0);
+			Gene meta = new Gene(100, 0.5, .0);
+			Gene style = new Gene(100, 0.5, .0);
 			
 			Gene[] newGenes = {hunger, lazy, violent, meta, style};
 			Llama toAdd = new Llama(this, newGenes);

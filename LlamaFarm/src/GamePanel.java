@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	public void startGame()
 	{
 		// Jungle
-		world = new GameWorld(.2, .3, .31, 5, pWidth);
+		world = new GameWorld(.001, .3, .31, 10, pWidth);
 		
 		game = new Thread(this);
 		game.start();
