@@ -123,7 +123,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 		Color backgroundColor = Color.WHITE;
 		dbG.setColor(backgroundColor);
 		dbG.fillRect(0, 0, pWidth, pHeight);
-		world.renderWorld(dbG);
+		// world.renderWorld(dbG);
 	}
 
 	// Actual double buffer code

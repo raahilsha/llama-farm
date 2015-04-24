@@ -210,7 +210,6 @@ public class Llama
 		}
 		
 		ArrayList<int[]> possiblePaths = new ArrayList<int[]>();
-		// This looks like bad code, but arrays are just annoying in Java
 		int[] newThing = {xPos2 + 1, yPos2};
 		int[] newThing2 = {xPos2 - 1, yPos2};
 		int[] newThing3 = {xPos2, yPos2 + 1};
