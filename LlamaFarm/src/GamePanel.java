@@ -4,11 +4,11 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable, MouseListener, MouseMotionListener, KeyListener
 {
-	private int pWidth;
-	private int pHeight;
-	private LlamaFarm mainGame;
+	// Used to track UI changes - doesn't matter for this project
+	private static final long serialVersionUID = -886995235406571190L;
 
-	private int framesPerSecond = -1;
+	private LlamaFarm mainGame;
+	private int framesPerSecond = Parameters.frames_per_second;
 	
 	// Used for double buffering
 	private Image dbImg;
@@ -22,13 +22,11 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	private GameWorld world;
 
 	// Instantiates game panel
-	public GamePanel(LlamaFarm mg, int width, int height)
+	public GamePanel(LlamaFarm mg)
 	{
 		mainGame = mg;
-		pWidth = width;
-		pHeight = height;
 		setBackground(Color.BLACK);
-		setPreferredSize(new Dimension(pWidth, pHeight));
+		setPreferredSize(new Dimension(Parameters.window_size, Parameters.window_size));
 		setFocusable(true);
 		requestFocus();
 		addKeyListener(this);
@@ -45,8 +43,11 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 
 	public void startGame()
 	{
-		// Jungle
-		world = new GameWorld(.001, .3, .31, 10, pWidth);
+		world = new GameWorld(Parameters.world_arability,
+							  Parameters.world_obsrate,
+							  Parameters.world_hazrate,
+							  Parameters.energy_loss,
+							  Parameters.window_size);
 		
 		game = new Thread(this);
 		game.start();
@@ -82,8 +83,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 
 			try
 			{
+				// This pauses current thread to wait until next frame
 				if (framesPerSecond > 0)
-					Thread.sleep(1000 / framesPerSecond); // This pauses current thread to wait until next frame
+					Thread.sleep(1000 / framesPerSecond);
 			}
 			catch (InterruptedException ex)
 			{
@@ -108,7 +110,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 	{
 		if (dbImg == null)
 		{
-			dbImg = createImage(pWidth, pHeight);
+			dbImg = createImage(Parameters.window_size, Parameters.window_size);
 			if (dbImg == null)
 			{
 				return;
@@ -119,10 +121,11 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 			}
 		}
 		
-		// Renders the game onto background image
+		// Creates a black background in the back - "wipes screen"
 		Color backgroundColor = Color.WHITE;
 		dbG.setColor(backgroundColor);
-		dbG.fillRect(0, 0, pWidth, pHeight);
+		dbG.fillRect(0, 0, Parameters.window_size, Parameters.window_size);
+		// Renders the world
 		world.renderWorld(dbG);
 	}
 

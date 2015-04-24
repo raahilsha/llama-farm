@@ -3,8 +3,8 @@ import java.util.*;
 
 public class GameWorld
 {
-	private static int numTiles = 125;
-	private static int numLlamas = 1000;
+	private static int numTiles = Parameters.num_tiles;
+	private static int numLlamas = Parameters.num_llamas;
 	
 	private ArrayList<Llama> llamas;
 	private boolean isRunningSimulation;
@@ -21,7 +21,7 @@ public class GameWorld
 	private int ticksThisGen;
 	
 	// Constructor for GameWorld
-	public GameWorld(double a, double o, double h, int d, int pw)
+	public GameWorld(double a, double o, double h, double d, int pw)
 	{
 		// Basic  world parameters
 		arability = a;
@@ -50,11 +50,11 @@ public class GameWorld
 		
 		for (int i = 0; i < numLlamas; i++)
 		{
-			Gene hunger = new Gene(100, 0.01, .0);
-			Gene lazy = new Gene(100, 0.0, .0);
-			Gene violent = new Gene(100, 0.5, .0);
-			Gene meta = new Gene(100, 0.5, .0);
-			Gene style = new Gene(100, 0.5, .0);
+			Gene hunger = new Gene(Parameters.genome_length, Parameters.hunger_init, Parameters.mutation_rate);
+			Gene lazy = new Gene(Parameters.genome_length, Parameters.lazy_init, Parameters.mutation_rate);
+			Gene violent = new Gene(Parameters.genome_length, Parameters.violent_init, Parameters.mutation_rate);
+			Gene meta = new Gene(Parameters.genome_length, Parameters.meta_init, Parameters.mutation_rate);
+			Gene style = new Gene(Parameters.genome_length, Parameters.style_init, Parameters.mutation_rate);
 			
 			Gene[] newGenes = {hunger, lazy, violent, meta, style};
 			Llama toAdd = new Llama(this, newGenes);
@@ -71,12 +71,14 @@ public class GameWorld
 			ticksThisGen++;
 			generateLlamaLocs();
 
+			// Recreates llama population if it dips down too far
 			if (llamas.size() <= numLlamas / 2)
 			{
 				isRunningSimulation = false;
 				return;
 			}
 			
+			// Goes through each llama and calls it to act
 			for (int i = 0; i < llamas.size(); i++)
 			{
 				llamas.get(i).action();
@@ -86,13 +88,13 @@ public class GameWorld
 		{
 			createNewGeneration();
 			generation++;
+			printGenerationStats();
 			ticksThisGen = 0;
 			isRunningSimulation = true;
-			printGenerationStats();
 		}
 	}
 	
-	
+	// Populates an array with all the llamas for easy access to llamas at a location
 	private void generateLlamaLocs()
 	{
 		for (int r = 0; r < numTiles; r++)
@@ -134,6 +136,7 @@ public class GameWorld
 		}
 	}
 	
+	// Refreshes the world tiles for a new generation
 	public void retile()
 	{
 		for (int r = 0; r < numTiles; r++)
@@ -164,11 +167,11 @@ public class GameWorld
 	// Adds llamas to the list based on the "representative" genes to balance llama population to even 50
 	private void addRepresentativeLlama(double[] representation)
 	{
-		Gene hunger = new Gene(100, representation[0], .01);
-		Gene lazy = new Gene(100, representation[1], .01);
-		Gene violent = new Gene(100, representation[2], .01);
-		Gene meta = new Gene(100, representation[3], .01);
-		Gene style = new Gene(100, representation[4], .01);
+		Gene hunger = new Gene(Parameters.genome_length, representation[0], Parameters.mutation_rate);
+		Gene lazy = new Gene(Parameters.genome_length, representation[1], Parameters.mutation_rate);
+		Gene violent = new Gene(Parameters.genome_length, representation[2], Parameters.mutation_rate);
+		Gene meta = new Gene(Parameters.genome_length, representation[3], Parameters.mutation_rate);
+		Gene style = new Gene(Parameters.genome_length, representation[4], Parameters.mutation_rate);
 		
 		Gene[] newGenes = {hunger, lazy, violent, meta, style};
 		Llama toAdd = new Llama(this, newGenes);
@@ -232,31 +235,41 @@ public class GameWorld
 		return tileSize;
 	}
 	
+	// Accessor for energy drain
 	public double getEnergyUse()
 	{
 		return this.energyDrain;
 	}
 	
+	// Accessor for the map
 	public Tile[][] getMap()
 	{
 		return worldTiles;
 	}
 
+	// Returns the llama at a given location
 	public Llama llamaAtLoc(int xPos2, int yPos2)
 	{
 		return llamaLocs[yPos2][xPos2];
 	}
 	
+	// Prints statistics to the command line / a file
 	public void printGenerationStats()
 	{
+		if (!Parameters.debug)
+			return;
 		double[] repGenes = getGeneRepresentation();
-		System.out.println("Generation " + generation + " stats");
-		System.out.println("--------------------");
-		System.out.println("Hunger Drive: " + repGenes[0]);
-		System.out.println("Laziness: " + repGenes[1]);
-		System.out.println("Violence: " + repGenes[2]);
-		System.out.println("Metabolism: " + repGenes[3]);
-		System.out.println("Stylishness: " + repGenes[4]);
-		System.out.println();
+		if (Parameters.debug_to_cmd)
+		{
+			System.out.println("Ticks this generation: " + ticksThisGen);
+			System.out.println();
+			System.out.println("Generation " + generation + " stats");
+			System.out.println("--------------------");
+			System.out.println("Hunger Drive: " + repGenes[0]);
+			System.out.println("Laziness: " + repGenes[1]);
+			System.out.println("Violence: " + repGenes[2]);
+			System.out.println("Metabolism: " + repGenes[3]);
+			System.out.println("Stylishness: " + repGenes[4]);
+		}
 	}
 }

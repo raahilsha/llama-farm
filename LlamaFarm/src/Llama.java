@@ -4,33 +4,20 @@ import java.util.*;
 public class Llama
 {
 	// All possible states a llama can obtain
-	// Note that NIRVANA is not among these
-	public static Color[] styleColors = {
-		new Color(0xFCE4EC),
-		new Color(0xF8BBD0),
-		new Color(0xF48FB1),
-		new Color(0xF06292),
-		new Color(0xEC407A),
-		new Color(0xE91E63),
-		new Color(0xD81B60),
-		new Color(0xC2185B),
-		new Color(0xAD1457),
-		new Color(0x880E4F)
-	};
-	
 	public enum State { IDLE_STATE, FOOD_SEEK, EATING, AGGRESSIVE, ATTACKING, RUNNING_AWAY, RANDOM_WALK, STUNNED }
 	
+	// Variables that remain constant (usually)
 	private GameWorld world;
 	private Gene[] genome;
-	private double energy;
 	
-	private double hungerDriveInd, lazinessInd, violenceInd, metabolismInd, styleInd; // This is the order
+	private double hungerDriveInd, lazinessInd, violenceInd, metabolismInd, styleInd; // This is the order of the genome
 	
+	// Current Llama State, along with all related variables
 	private State currentState;
+	private double energy;
 	private int cooldown;
 	public int xTarget, yTarget;
 	private Llama targetLlama;
-	
 	private int xPos;
 	private int yPos;
 	
@@ -48,33 +35,22 @@ public class Llama
 		metabolismInd = g[3].getActivation();
 		styleInd = g[4].getActivation();
 		
-		energy = 1000;
+		energy = Parameters.energy_init;
 
+		// Randomizes llama position
 		xPos = (int)(Math.random() * world.getNumTiles());
 		yPos = (int)(Math.random() * world.getNumTiles());
 	}
 	
-	// Renders Llama onto game panel based on its stylishness
+	// Renders Llama onto game panel based on its stylishness and position
 	public void renderLlama(Graphics img, int tileSize)
 	{
 		if (styleInd >= 1.0)
-			img.setColor(styleColors[9]);
+			img.setColor(Parameters.style_colors[9]);
 		else
-			img.setColor(styleColors[(int)(styleInd * styleColors.length)]);
+			img.setColor(Parameters.style_colors[(int)(styleInd * Parameters.style_colors.length)]);
 		
 		img.fillOval(xPos * world.getTileSize(), yPos * world.getTileSize(), tileSize - 1, tileSize - 1);
-		
-		if (currentState == State.STUNNED)
-		{
-			img.setColor(Color.yellow);
-			img.fillRect(xPos * world.getTileSize() + 2, yPos * world.getTileSize() + 2, tileSize / 3, tileSize / 3);
-		}
-		
-		if (currentState == State.AGGRESSIVE)
-		{
-			img.setColor(Color.red);
-			img.fillRect(xPos * world.getTileSize() + 2 + tileSize / 3, yPos * world.getTileSize() + 2 + tileSize / 3, tileSize / 3, tileSize / 3);
-		}
 	}
 	
 	// Breeds one llama with other
@@ -83,6 +59,14 @@ public class Llama
 		int offspringCount = 4;
 		int numGenes = genome.length;
 		Gene[] otherGenome = other.getGenome();
+		
+		// Both llamas undergo meiosis
+		for (int i = 0; i < numGenes; i++)
+		{
+			otherGenome[i].meiosis();
+			genome[i].meiosis();
+		}
+		
 		Llama[] offspringLlamas = new Llama[offspringCount];
 
 		Gene[][] finishedChildren = new Gene[numGenes][offspringCount];
@@ -116,7 +100,7 @@ public class Llama
 	public void action()
 	{
 		if (currentState != State.IDLE_STATE)
-			energy -= world.getEnergyUse();
+			energy -= world.getEnergyUse() / metabolismInd;
 		switch (currentState)
 		{
 			case IDLE_STATE:
@@ -149,15 +133,17 @@ public class Llama
 			die();
 	}
 	
+	// Stay still and enter random_walk if not that lazy
 	private void idleAction()
 	{
-		energy += world.getEnergyUse() * .25;
+		energy += Parameters.idle_regain;
 		if (Math.random() > 1 - (1 - lazinessInd) / 4)
 		{
 			currentState = State.RANDOM_WALK;
 		}
 	}
 	
+	// Remain stunned and lose energy until stun timer wears off
 	private void stunAction()
 	{
 		energy -= world.getEnergyUse();
@@ -166,6 +152,7 @@ public class Llama
 		cooldown--;
 	}
 	
+	// Runs away from oppressor until timer wears off
 	private void runningAwayAction()
 	{
 		if (cooldown <= 0)
@@ -176,11 +163,12 @@ public class Llama
 		cooldown--;
 	}
 	
+	// Search for llamas to attack and attack them
 	private void aggressiveAction()
 	{
-		energy -= world.getEnergyUse() * .25;
+		energy -= Parameters.aggressive_loss;
 		Tile[][] worldMap = world.getMap();
-		if (checkRecAttackTarget(worldMap, xPos, yPos, 5))
+		if (checkRecAttackTarget(worldMap, xPos, yPos, Parameters.search_radius))
 		{
 			currentState = State.ATTACKING;
 		}
@@ -190,6 +178,7 @@ public class Llama
 		}
 	}
 	
+	// Used to search for attackable llamas
 	private boolean checkRecAttackTarget(Tile[][] worldMap, int xPos2, int yPos2, int i)
 	{
 		if (i <= 0)
@@ -229,9 +218,10 @@ public class Llama
 		return false;
 	}
 	
+	// Chases after a llama to kill it
 	private void attackingAction()
 	{
-		energy -= world.getEnergyUse() * .25;
+		energy -= Parameters.aggressive_loss;
 		if (targetLlama == null)
 		{
 			currentState = State.IDLE_STATE;
@@ -249,17 +239,19 @@ public class Llama
 		}
 	}
 	
+	// Eats food that it is on top of
 	private void eatAction()
 	{
 		if (cooldown <= 0)
 		{
 			world.getMap()[yPos][xPos].changeTile(Tile.TileTypes.SOIL);
 			currentState = State.IDLE_STATE;
-			energy += 2000;
+			energy += Parameters.food_regain;
 		}
 		cooldown--;
 	}
 	
+	// Walks around randomly and decides what to do based on FSM diagram
 	private void randWalkAction()
 	{
 		if (checkIfStunned())
@@ -278,6 +270,7 @@ public class Llama
 		makeRandomMove();
 	}
 	
+	// Search for food
 	private void foodSeekAction()
 	{
 		if (checkIfStunned())
@@ -285,11 +278,11 @@ public class Llama
 		Tile[][] worldMap = world.getMap();
 		if (worldMap[yPos][xPos].getType() == Tile.TileTypes.FOOD)
 		{
-			cooldown = 5;
+			cooldown = Parameters.eating_timer;
 			currentState = State.EATING;
 			return;
 		}
-		if (checkRecFood(worldMap, xPos, yPos, 5))
+		if (checkRecFood(worldMap, xPos, yPos, Parameters.search_radius))
 		{
 			moveTowardsTarget();
 		}
@@ -299,6 +292,7 @@ public class Llama
 		}
 	}
 	
+	// Used to recursively search for food in the map
 	private boolean checkRecFood(Tile[][] worldMap, int xPos2, int yPos2, int i)
 	{
 		if (i <= 0)
@@ -335,18 +329,20 @@ public class Llama
 		return false;
 	}
 	
+	// Checks for a nearby llama that's too stylish
 	private boolean checkIfStunned()
 	{
 		Tile[][] worldMap = world.getMap();
-		if (checkRecStunned(worldMap, xPos, yPos, 5))
+		if (checkRecStunned(worldMap, xPos, yPos, Parameters.search_radius))
 		{
 			currentState = State.STUNNED;
-			cooldown = 10;
+			cooldown = Parameters.stun_timer;
 			return true;
 		}
 		return false;
 	}
 	
+	// Moves to a random, not out-of-bounds area
 	public void makeRandomMove()
 	{
 		int newxPos = -1, newyPos = -1;
@@ -361,6 +357,7 @@ public class Llama
 		yPos = newyPos;
 	}
 	
+	// Recursively searches for nearby stylish llamas in worldMap
 	private boolean checkRecStunned(Tile[][] worldMap, int xPos2, int yPos2, int i)
 	{
 		if (i <= 0)
@@ -369,10 +366,10 @@ public class Llama
 			return false;
 		
 		Llama otherAtLoc = world.llamaAtLoc(xPos2, yPos2);
-		if (otherAtLoc != null)
+		if (otherAtLoc != null && otherAtLoc != this)
 		{
 			double style2 = otherAtLoc.getStylishness();
-			if (Math.random() < style2 - styleInd)
+			if (Math.random() < (style2 - styleInd) * Parameters.stylishness_multiplicity)
 				return true;
 			else
 				return false;
@@ -401,11 +398,13 @@ public class Llama
 		return false;
 	}
 	
+	// Checks to see if a position is out of bounds
 	private boolean outOfBounds(Tile[][] worldMap, int xPos2, int yPos2)
 	{
 		return xPos2 < 0 || yPos2 < 0 || xPos2 >= worldMap.length || yPos2 >= worldMap.length;
 	}
 	
+	// Moves towards a position
 	private void moveTowardsTarget()
 	{
 		if (xPos < xTarget)
@@ -418,6 +417,7 @@ public class Llama
 			yPos--;
 	}
 	
+	// Moves away from a position, remaining within bounds
 	private void moveAwayFromTarget()
 	{
 		if (xPos < xTarget)
@@ -439,13 +439,14 @@ public class Llama
 			yPos = world.getNumTiles() - 1;
 	}
 	
+	// Get hurt and choose to fight back or run away
 	public void getAttacked(Llama other)
 	{
-		energy = energy - 200;
+		energy = energy - Parameters.attack_loss;
 		if (Math.random() < this.violenceInd)
 		{
 			currentState = State.RUNNING_AWAY;
-			cooldown = 5;
+			cooldown = Parameters.run_cooldown;
         }
 		else
 		{
@@ -453,6 +454,7 @@ public class Llama
 		}
 	}
 	
+	// Stip attacking if the target is dead or missing
 	public void stopAttacking()
 	{
 		targetLlama = null;
@@ -477,21 +479,25 @@ public class Llama
 		return currentState;
 	}
 	
+	// Accessor for stylishness
 	public double getStylishness()
 	{
 		return styleInd;
 	}
 	
+	// Accessor for x position
 	public int getX()
 	{
 		return xPos;
 	}
 	
+	// Accessor for y position
 	public int getY()
 	{
 		return yPos;
 	}
 	
+	// Returns the current state as a string - used to debug
 	public String parseState()
 	{
 		switch (currentState)

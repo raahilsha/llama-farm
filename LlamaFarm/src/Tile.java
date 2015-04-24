@@ -28,16 +28,16 @@ public class Tile
 		switch (ttype)
 		{
 			case SOIL:
-				tileColor = new Color(0x795548);
+				tileColor = Parameters.tile_colors[0];
 				break;
 			case FOOD:
-				tileColor = new Color(0x00E676);
+				tileColor = Parameters.tile_colors[1];
 				break;
 			case HAZARD:
-				tileColor = new Color(0xFF3D00);
+				tileColor = Parameters.tile_colors[2];
 				break;
 			case OBSTACLE:
-				tileColor = new Color(0x424242);
+				tileColor = Parameters.tile_colors[3];
 				break;
 		}
 	}
