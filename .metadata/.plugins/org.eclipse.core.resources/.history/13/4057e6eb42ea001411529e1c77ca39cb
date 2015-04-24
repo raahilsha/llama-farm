@@ -166,7 +166,6 @@ public class Llama
 	
 	private void aggressiveAction()
 	{
-		energy -= world.getEnergyUse() * .25;
 		Tile[][] worldMap = world.getMap();
 		if (checkRecAttackTarget(worldMap, xPos, yPos, 5))
 		{
@@ -219,7 +218,6 @@ public class Llama
 	
 	private void attackingAction()
 	{
-		energy -= world.getEnergyUse() * .25;
 		if (targetLlama == null)
 		{
 			currentState = State.IDLE_STATE;

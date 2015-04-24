@@ -139,7 +139,6 @@ public class Llama
 	
 	private void idleAction()
 	{
-		energy += world.getEnergyUse() * .75;
 		if (Math.random() > 1 - (1 - lazinessInd) / 4)
 		{
 			currentState = State.RANDOM_WALK;
@@ -148,7 +147,6 @@ public class Llama
 	
 	private void stunAction()
 	{
-		energy += world.getEnergyUse() * .75;
 		if (cooldown <= 0)
 			currentState = State.IDLE_STATE;
 		cooldown--;
@@ -166,7 +164,6 @@ public class Llama
 	
 	private void aggressiveAction()
 	{
-		energy -= world.getEnergyUse() * .25;
 		Tile[][] worldMap = world.getMap();
 		if (checkRecAttackTarget(worldMap, xPos, yPos, 5))
 		{
@@ -219,7 +216,6 @@ public class Llama
 	
 	private void attackingAction()
 	{
-		energy -= world.getEnergyUse() * .25;
 		if (targetLlama == null)
 		{
 			currentState = State.IDLE_STATE;

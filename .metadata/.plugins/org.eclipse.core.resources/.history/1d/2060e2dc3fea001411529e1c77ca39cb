@@ -29,7 +29,6 @@ public class Llama
 	private State currentState;
 	private int cooldown;
 	public int xTarget, yTarget;
-	private Llama targetLlama;
 	
 	private int xPos;
 	private int yPos;
@@ -117,13 +116,10 @@ public class Llama
 				eatAction();
 				break;
 			case AGGRESSIVE:
-				aggressiveAction();
 				break;
 			case ATTACKING:
-				attackingAction();
 				break;
 			case RUNNING_AWAY:
-				runningAwayAction();
 				break;
 			case RANDOM_WALK:
 				randWalkAction();
@@ -139,7 +135,6 @@ public class Llama
 	
 	private void idleAction()
 	{
-		energy += world.getEnergyUse() * .75;
 		if (Math.random() > 1 - (1 - lazinessInd) / 4)
 		{
 			currentState = State.RANDOM_WALK;
@@ -148,93 +143,9 @@ public class Llama
 	
 	private void stunAction()
 	{
-		energy += world.getEnergyUse() * .75;
 		if (cooldown <= 0)
 			currentState = State.IDLE_STATE;
 		cooldown--;
-	}
-	
-	private void runningAwayAction()
-	{
-		if (cooldown <= 0)
-		{
-			currentState = State.IDLE_STATE;
-		}
-		this.moveAwayFromTarget();
-		cooldown--;
-	}
-	
-	private void aggressiveAction()
-	{
-		energy -= world.getEnergyUse() * .25;
-		Tile[][] worldMap = world.getMap();
-		if (checkRecAttackTarget(worldMap, xPos, yPos, 5))
-		{
-			currentState = State.ATTACKING;
-		}
-		else
-		{
-			makeRandomMove();
-		}
-	}
-	
-	private boolean checkRecAttackTarget(Tile[][] worldMap, int xPos2, int yPos2, int i)
-	{
-		if (i <= 0)
-			return false;
-		if (outOfBounds(worldMap, xPos2, yPos2))
-			return false;
-		
-		Llama otherAtLoc = world.llamaAtLoc(xPos2, yPos2);
-		if (otherAtLoc != null && otherAtLoc != this)
-		{
-			targetLlama = otherAtLoc;
-			xTarget = targetLlama.getX();
-			yTarget = targetLlama.getY();
-			return true;
-		}
-		
-		ArrayList<int[]> possiblePaths = new ArrayList<int[]>();
-		// This looks like bad code, but arrays are just annoying in Java
-		int[] newThing = {xPos2 + 1, yPos2};
-		int[] newThing2 = {xPos2 - 1, yPos2};
-		int[] newThing3 = {xPos2, yPos2 + 1};
-		int[] newThing4 = {xPos2, yPos2 - 1};
-		possiblePaths.add(newThing);
-		possiblePaths.add(newThing2);
-		possiblePaths.add(newThing3);
-		possiblePaths.add(newThing4);
-		
-		while(possiblePaths.size() > 0)
-		{
-			int selection = (int)(Math.random() * possiblePaths.size());
-			int[] selectedPath = possiblePaths.remove(selection);
-			boolean worked = checkRecAttackTarget(worldMap, selectedPath[0], selectedPath[1], i - 1);
-			if (worked)
-				return true;
-		}
-		
-		return false;
-	}
-	
-	private void attackingAction()
-	{
-		energy -= world.getEnergyUse() * .25;
-		if (targetLlama == null)
-		{
-			currentState = State.IDLE_STATE;
-			return;
-		}
-		if (targetLlama.getX() == xPos && targetLlama.getY() == yPos)
-		{
-			targetLlama.getAttacked(this);
-		}
-		else
-		{
-			xTarget = targetLlama.getX();
-			yTarget = targetLlama.getY();
-			moveTowardsTarget();
-		}
 	}
 	
 	private void eatAction()
@@ -259,7 +170,7 @@ public class Llama
 		}
 		if (Math.random() < violenceInd)
 		{
-			currentState = State.AGGRESSIVE;
+			// currentState = State.AGGRESSIVE;
 			return;
 		}
 		
@@ -268,8 +179,6 @@ public class Llama
 	
 	private void foodSeekAction()
 	{
-		if (checkIfStunned())
-			return;
 		Tile[][] worldMap = world.getMap();
 		if (worldMap[yPos][xPos].getType() == Tile.TileTypes.FOOD)
 		{
@@ -406,45 +315,9 @@ public class Llama
 			yPos--;
 	}
 	
-	private void moveAwayFromTarget()
-	{
-		if (xPos < xTarget)
-			xPos--;
-		else if (xPos > xTarget)
-			xPos++;
-		if (yPos < yTarget)
-			yPos--;
-		else if (yPos > yTarget)
-			yPos++;
-		
-		if (xPos < 0)
-			xPos = 0;
-		if (xPos >= world.getNumTiles())
-			xPos = world.getNumTiles() - 1;
-		if (yPos < 0)
-			yPos = 0;
-		if (yPos >= world.getNumTiles())
-			yPos = world.getNumTiles() - 1;
-	}
-	
 	public void getAttacked(Llama other)
 	{
-		energy = energy - 200;
-		if (Math.random() < this.violenceInd)
-		{
-			currentState = State.RUNNING_AWAY;
-			cooldown = 5;
-        }
-		else
-		{
-			currentState = State.ATTACKING;
-		}
-	}
-	
-	public void stopAttacking()
-	{
-		targetLlama = null;
-		currentState = State.IDLE_STATE;
+		
 	}
 
 	// Kills the current llama

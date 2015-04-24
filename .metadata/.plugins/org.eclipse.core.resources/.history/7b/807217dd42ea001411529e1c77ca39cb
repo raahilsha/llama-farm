@@ -50,10 +50,10 @@ public class GameWorld
 		
 		for (int i = 0; i < numLlamas; i++)
 		{
-			Gene hunger = new Gene(100, 0.5, .1);
-			Gene lazy = new Gene(100, 0.5, .1);
+			Gene hunger = new Gene(100, 0.05, .1);
+			Gene lazy = new Gene(100, 0.95, .1);
 			Gene violent = new Gene(100, 0.5, .1);
-			Gene meta = new Gene(100, 0.5, .1);
+			Gene meta = new Gene(100, 0.1, .1);
 			Gene style = new Gene(100, 0.5, .1);
 			
 			Gene[] newGenes = {hunger, lazy, violent, meta, style};
@@ -257,6 +257,5 @@ public class GameWorld
 		System.out.println("Violence: " + repGenes[2]);
 		System.out.println("Metabolism: " + repGenes[3]);
 		System.out.println("Stylishness: " + repGenes[4]);
-		System.out.println();
 	}
 }
