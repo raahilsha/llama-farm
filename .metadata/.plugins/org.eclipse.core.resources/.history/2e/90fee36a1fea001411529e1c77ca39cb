@@ -4,7 +4,7 @@ import java.util.*;
 public class GameWorld
 {
 	private static int numTiles = 25;
-	private static int numLlamas = 100;
+	private static int numLlamas = 4;
 	
 	private ArrayList<Llama> llamas;
 	private boolean isRunningSimulation;

@@ -32,7 +32,6 @@ public class GameWorld
 		// Calculated world parameters
 		generation = 0;
 		tileSize = pw / numTiles;
-		llamaLocs = new Llama[numTiles][numTiles];
 		
 		createInitialGeneration();
 		isRunningSimulation = true;

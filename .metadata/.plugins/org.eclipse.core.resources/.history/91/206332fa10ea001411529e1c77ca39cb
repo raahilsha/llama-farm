@@ -9,7 +9,6 @@ public class GameWorld
 	private ArrayList<Llama> llamas;
 	private boolean isRunningSimulation;
 	private Tile[][] worldTiles;
-	private Llama[][] llamaLocs;
 	private int tileSize;
 	
 	private double arability;
@@ -32,7 +31,6 @@ public class GameWorld
 		// Calculated world parameters
 		generation = 0;
 		tileSize = pw / numTiles;
-		llamaLocs = new Llama[numTiles][numTiles];
 		
 		createInitialGeneration();
 		isRunningSimulation = true;
@@ -90,7 +88,8 @@ public class GameWorld
 		if (isRunningSimulation)
 		{
 			ticksThisGen++;
-			generateLlamaLocs();
+			
+			System.out.println("Generation " + this.generation + "-" + ticksThisGen + ": " + this.getGeneRepresentation()[4]);
 
 			if (llamas.size() <= numLlamas / 2)
 			{
@@ -113,23 +112,6 @@ public class GameWorld
 	}
 	
 	
-	private void generateLlamaLocs()
-	{
-		for (int r = 0; r < numTiles; r++)
-		{
-			for (int c = 0; c < numTiles; c++)
-			{
-				llamaLocs[r][c] = null;
-			}
-		}
-		
-		for (int i = 0; i < llamas.size(); i++)
-		{
-			Llama locAdd = llamas.get(i);
-			llamaLocs[locAdd.getY()][locAdd.getX()] = locAdd;
-		}
-	}
-
 	// Takes the arraylist of llamas and creates a brand new generation
 	public void createNewGeneration()
 	{
@@ -224,20 +206,5 @@ public class GameWorld
 	public int getTileSize()
 	{
 		return tileSize;
-	}
-	
-	public double getEnergyUse()
-	{
-		return this.energyDrain;
-	}
-	
-	public Tile[][] getMap()
-	{
-		return worldTiles;
-	}
-
-	public Llama llamaAtLoc(int xPos2, int yPos2)
-	{
-		return llamaLocs[yPos2][xPos2];
 	}
 }

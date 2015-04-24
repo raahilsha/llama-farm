@@ -26,7 +26,7 @@ public class Llama
 	private double hungerDriveInd, lazinessInd, violenceInd, metabolismInd, styleInd; // This is the order
 	
 	private State currentState;
-	private int cooldown;
+	private int stunTimer;
 	
 	private int xPos;
 	private int yPos;
@@ -37,7 +37,6 @@ public class Llama
 		world = gw;
 		genome = g;
 		currentState = State.IDLE_STATE;
-		cooldown = 0;
 
 		hungerDriveInd = g[0].getActivation();
 		lazinessInd = g[1].getActivation();
@@ -47,8 +46,8 @@ public class Llama
 		
 		energy = 1000;
 
-		xPos = (int)(Math.random() * world.getNumTiles());
-		yPos = (int)(Math.random() * world.getNumTiles());
+		xPos = (int)(Math.random() * world.getNumTiles())  * world.getTileSize();
+		yPos = (int)(Math.random() * world.getNumTiles()) * world.getTileSize();
 	}
 	
 	// Renders Llama onto game panel based on its stylishness
@@ -59,7 +58,7 @@ public class Llama
 		else
 			img.setColor(styleColors[(int)(styleInd * styleColors.length)]);
 		
-		img.fillOval(xPos * world.getTileSize(), yPos * world.getTileSize(), tileSize - 1, tileSize - 1);
+		img.fillOval(xPos, yPos, tileSize - 1, tileSize - 1);
 	}
 	
 	// Breeds one llama with other
@@ -139,9 +138,9 @@ public class Llama
 	
 	private void stunAction()
 	{
-		if (cooldown <= 0)
+		if (stunTimer <= 0)
 			currentState = State.IDLE_STATE;
-		cooldown--;
+		stunTimer--;
 	}
 	
 	private void randWalkAction()
@@ -164,7 +163,7 @@ public class Llama
 		while (outOfBounds(world.getMap(), newxPos, newyPos))
 		{
 			newxPos = (int)(Math.random() * 3) - 1 + xPos;
-			newyPos = (int)(Math.random() * 3) - 1 + yPos;
+			newyPos = (int)(Math.random() * 3) - 1 + xPos;
 		}
 		
 		xPos = newxPos;
@@ -177,14 +176,13 @@ public class Llama
 		if (checkRecStunned(worldMap, xPos, yPos, 5))
 		{
 			currentState = State.STUNNED;
-			cooldown = 5;
+			stunTimer = 5;
 			return true;
 		}
 		return false;
 	}
 	
-	private boolean checkRecStunned(Tile[][] worldMap, int xPos2, int yPos2, int i)
-	{
+	private boolean checkRecStunned(Tile[][] worldMap, int xPos2, int yPos2, int i) {
 		if (i <= 0)
 			return false;
 		if (outOfBounds(worldMap, xPos2, yPos2))

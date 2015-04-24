@@ -21,12 +21,11 @@ public class Llama
 	
 	private GameWorld world;
 	private Gene[] genome;
-	private double energy;
+	private int energy;
 	
 	private double hungerDriveInd, lazinessInd, violenceInd, metabolismInd, styleInd; // This is the order
 	
 	private State currentState;
-	private int cooldown;
 	
 	private int xPos;
 	private int yPos;
@@ -37,7 +36,6 @@ public class Llama
 		world = gw;
 		genome = g;
 		currentState = State.IDLE_STATE;
-		cooldown = 0;
 
 		hungerDriveInd = g[0].getActivation();
 		lazinessInd = g[1].getActivation();
@@ -47,8 +45,8 @@ public class Llama
 		
 		energy = 1000;
 
-		xPos = (int)(Math.random() * world.getNumTiles());
-		yPos = (int)(Math.random() * world.getNumTiles());
+		xPos = (int)(Math.random() * world.getNumTiles())  * world.getTileSize();
+		yPos = (int)(Math.random() * world.getNumTiles()) * world.getTileSize();
 	}
 	
 	// Renders Llama onto game panel based on its stylishness
@@ -59,7 +57,7 @@ public class Llama
 		else
 			img.setColor(styleColors[(int)(styleInd * styleColors.length)]);
 		
-		img.fillOval(xPos * world.getTileSize(), yPos * world.getTileSize(), tileSize - 1, tileSize - 1);
+		img.fillOval(xPos, yPos, tileSize - 1, tileSize - 1);
 	}
 	
 	// Breeds one llama with other
@@ -97,15 +95,12 @@ public class Llama
 		return offspringLlamas;
 	}
 	
-	// Runs the Finite State Machine of Llama
+	// Runs the Finite State Machine of Llama 
 	public void action()
 	{
-		if (currentState != State.IDLE_STATE)
-			energy -= world.getEnergyUse();
 		switch (currentState)
 		{
 			case IDLE_STATE:
-				idleAction();
 				break;
 			case FOOD_SEEK:
 				break;
@@ -118,99 +113,20 @@ public class Llama
 			case RUNNING_AWAY:
 				break;
 			case RANDOM_WALK:
-				randWalkAction();
 				break;
 			case STUNNED:
-				stunAction();
 				break;
+		}
+		
+		if (styleInd < Math.random())
+		{
+			die();
 		}
 		
 		if (energy <= 0)
 			die();
 	}
 	
-	private void idleAction()
-	{
-		if (Math.random() > 1 - (1 - lazinessInd) / 4)
-		{
-			currentState = State.RANDOM_WALK;
-		}
-	}
-	
-	private void stunAction()
-	{
-		if (cooldown <= 0)
-			currentState = State.IDLE_STATE;
-		cooldown--;
-	}
-	
-	private void randWalkAction()
-	{
-		if (checkIfStunned())
-			return;
-		if (Math.random() < hungerDriveInd)
-		{
-			currentState = State.FOOD_SEEK;
-			return;
-		}
-		if (Math.random() < violenceInd)
-		{
-			currentState = State.AGGRESSIVE;
-			return;
-		}
-		
-		int newxPos = -1, newyPos = -1;
-		
-		while (outOfBounds(world.getMap(), newxPos, newyPos))
-		{
-			newxPos = (int)(Math.random() * 3) - 1 + xPos;
-			newyPos = (int)(Math.random() * 3) - 1 + yPos;
-		}
-		
-		xPos = newxPos;
-		yPos = newyPos;
-	}
-	
-	private boolean checkIfStunned()
-	{
-		Tile[][] worldMap = world.getMap();
-		if (checkRecStunned(worldMap, xPos, yPos, 5))
-		{
-			currentState = State.STUNNED;
-			cooldown = 5;
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean checkRecStunned(Tile[][] worldMap, int xPos2, int yPos2, int i)
-	{
-		if (i <= 0)
-			return false;
-		if (outOfBounds(worldMap, xPos2, yPos2))
-			return false;
-		
-		Llama otherAtLoc = world.llamaAtLoc(xPos2, yPos2);
-		if (otherAtLoc != null)
-		{
-			double style2 = otherAtLoc.getStylishness();
-			if (Math.random() < style2 - styleInd)
-				return true;
-			else
-				return false;
-		}
-		
-		return checkRecStunned(worldMap, xPos2 + 1, yPos2, i - 1) ||
-				checkRecStunned(worldMap, xPos2 - 1, yPos2, i - 1) ||
-				checkRecStunned(worldMap, xPos2, yPos2 + 1, i - 1) ||
-				checkRecStunned(worldMap, xPos2, yPos2 - 1, i - 1);
-	}
-	
-	private boolean outOfBounds(Tile[][] worldMap, int xPos2, int yPos2)
-	{
-		return xPos2 < 0 || yPos2 < 0 || xPos2 >= worldMap[0].length || yPos2 >= worldMap.length;
-	}
-
 	// Kills the current llama
 	public void die()
 	{
@@ -227,20 +143,5 @@ public class Llama
 	public State getState()
 	{
 		return currentState;
-	}
-	
-	public double getStylishness()
-	{
-		return styleInd;
-	}
-	
-	public int getX()
-	{
-		return xPos;
-	}
-	
-	public int getY()
-	{
-		return yPos;
 	}
 }
