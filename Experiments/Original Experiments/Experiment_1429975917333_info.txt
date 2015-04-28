@@ -1,0 +1,29 @@
+Experiment at time 1429975917333
+------------------------------
+experiment_notes: All values started at 0.1, few trees, stylishness affect diminished
+window_size: 1000
+frames_per_second: -1
+world_arability: 0.1
+world_obsrate: 0.3
+world_hazrate: 0.31
+energy_loss: 10.0
+num_tiles: 125
+num_llamas: 1000
+num_generations: 2000
+mutation_rate: 0.0
+genome_length: 1000
+hunger_init: 0.1
+lazy_init: 0.1
+violent_init: 0.1
+meta_init: 0.1
+style_init: 0.1
+energy_init: 1000.0
+idle_regain: 2.5
+aggressive_loss: 2.5
+search_radius: 5
+food_regain: 2000.0
+attack_loss: 200.0
+stylishness_multiplicity: 1.0
+run_cooldown: 5
+stun_timer: 10
+eating_timer: 5

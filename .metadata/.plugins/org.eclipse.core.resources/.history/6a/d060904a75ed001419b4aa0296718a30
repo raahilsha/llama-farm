@@ -131,10 +131,6 @@ public class Llama
 				break;
 		}
 		
-		Tile[][] worldMap = world.getMap();
-		if (worldMap[yPos][xPos].getType() == Tile.TileTypes.HAZARD)
-			die();
-		
 		if (energy <= 0)
 			die();
 	}
