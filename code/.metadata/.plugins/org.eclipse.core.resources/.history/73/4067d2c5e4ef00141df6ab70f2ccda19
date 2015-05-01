@@ -29,7 +29,7 @@ public class GameWorld
 	public GameWorld(double a, double o, double h, double d, int pw)
 	{
 		Scanner in = new Scanner(System.in);
-		System.out.print("Should we ask for new parameters every 250 generations? (y/n): ");
+		System.out.print("Should we ask for new parameters every 25 generations? (y/n): ");
 		String reply = in.nextLine();
 		askForNewParams = reply.charAt(0) == 'Y' || reply.charAt(0) == 'y';
 		
@@ -147,7 +147,7 @@ public class GameWorld
 	// Takes the arraylist of llamas and creates a brand new generation
 	public void createNewGeneration()
 	{
-		if ((generation + 1) % 250 == 0)
+		if ((generation + 1) % 25 == 0)
 		{
 			if (askForNewParams)
 				Parameters.askForParameters();

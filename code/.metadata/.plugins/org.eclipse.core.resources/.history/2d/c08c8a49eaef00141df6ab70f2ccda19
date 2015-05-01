@@ -13,7 +13,7 @@ public class Parameters
 		    "[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*");
 	
 	// Write experiment notes here to debug
-	public static String experiment_notes = "All values started at 0.5";
+	public static String experiment_notes = "All values started at 0.1";
 	
 	// Window Settings
 	public static int window_size = 1000; // Width and height of the game window. Recommend to keep constant
@@ -40,11 +40,11 @@ public class Parameters
 	public static int genome_length = 100; // Length of each gene
 	
 	// Initial Genome Settings
-	public static double hunger_init = 0.5; // Initial hunger probability
-	public static double lazy_init = 0.5; // Initial laziness probability
-	public static double violent_init = 0.5; // Initial violence probability
-	public static double meta_init = 0.5; // Initial metabolism probability
-	public static double style_init = 0.5; // Initial style probability
+	public static double hunger_init = 0.1; // Initial hunger probability
+	public static double lazy_init = 0.1; // Initial laziness probability
+	public static double violent_init = 0.1; // Initial violence probability
+	public static double meta_init = 0.1; // Initial metabolism probability
+	public static double style_init = 0.1; // Initial style probability
 	
 	// Color Palettes
 	public static Color[] style_colors = // Light pink -> dark purple values representing style

@@ -147,7 +147,7 @@ public class GameWorld
 	// Takes the arraylist of llamas and creates a brand new generation
 	public void createNewGeneration()
 	{
-		if ((generation + 1) % 250 == 0)
+		if ((generation + 1) % 25 == 0)
 		{
 			if (askForNewParams)
 				Parameters.askForParameters();
