@@ -44,7 +44,7 @@ public class Parameters
 	public static double lazy_init = 0.5; // Initial laziness probability
 	public static double violent_init = 0.5; // Initial violence probability
 	public static double meta_init = 0.5; // Initial metabolism probability
-	public static double style_init = 0.5; // Initial style probability
+	public static double style_init = 0.1; // Initial style probability
 	
 	// Color Palettes
 	public static Color[] style_colors = // Light pink -> dark purple values representing style

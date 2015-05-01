@@ -65,8 +65,8 @@ public class Llama
 		// Both llamas undergo meiosis
 		for (int i = 0; i < numGenes; i++)
 		{
-			//otherGenome[i].meiosis();
-			//myGenome[i].meiosis();
+			otherGenome[i].meiosis();
+			myGenome[i].meiosis();
 		}
 		
 		Llama[] offspringLlamas = new Llama[offspringCount];

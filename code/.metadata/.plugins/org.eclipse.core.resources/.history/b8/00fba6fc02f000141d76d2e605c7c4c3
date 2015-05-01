@@ -1,11 +1,19 @@
 import java.awt.Color;
 import java.io.*;
 import java.util.*;
+import java.util.regex.*;
 
 public class Parameters
 {
+	// Used to check if a String is a double
+	private static Pattern double_pattern = Pattern.compile(
+		    "[\\x00-\\x20]*[+-]?(NaN|Infinity|((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)" +
+		    "([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|" +
+		    "(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))" +
+		    "[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*");
+	
 	// Write experiment notes here to debug
-	public static String experiment_notes = "All values started at 0.1, few trees";
+	public static String experiment_notes = "All values started at 0.5";
 	
 	// Window Settings
 	public static int window_size = 1000; // Width and height of the game window. Recommend to keep constant
@@ -15,28 +23,28 @@ public class Parameters
 	// The below 3 should be in constant increasing order
 	public static double world_arability = 0.1; // Probability of a spot on the world getting food = arability
 	public static double world_obsrate = 0.3; // Probability of a spot on the world being colored alternatively = obsrate - arability
-	public static double world_hazrate = 0.31; // Probability of a spot on the world being dangerous = hazrate - obsrate
+	public static double world_hazrate = 0.3; // Probability of a spot on the world being dangerous = hazrate - obsrate
 	
 	public static double energy_loss = 10; // Energy lost every turn
 	
 	// Simulation Settings
 	public static int num_tiles = 125; // Number of tiles in world width and height. Should be a factor of window_size
 	public static int num_llamas = 1000; // Number of llamas in world. Should be a multiple of 4
-	public static int num_generations = 500; // Maximum number of generations
+	public static int num_generations = 1000; // Maximum number of generations
 	public static boolean debug = true; // Debug?
 	public static boolean debug_to_cmd = true; // Print stats to Console?
 	public static boolean debug_to_csv = true; // Print stats to CSV file?
 	
 	// Genetics Settings
 	public static double mutation_rate = 0.0; // Rate of mutation
-	public static int genome_length = 1000; // Length of each gene
+	public static int genome_length = 100; // Length of each gene
 	
 	// Initial Genome Settings
-	public static double hunger_init = 0.1; // Initial hunger probability
-	public static double lazy_init = 0.1; // Initial laziness probability
-	public static double violent_init = 0.1; // Initial violence probability
-	public static double meta_init = 0.1; // Initial metabolism probability
-	public static double style_init = 0.1; // Initial style probability
+	public static double hunger_init = 0.5; // Initial hunger probability
+	public static double lazy_init = 0.5; // Initial laziness probability
+	public static double violent_init = 0.5; // Initial violence probability
+	public static double meta_init = 0.5; // Initial metabolism probability
+	public static double style_init = 0.5; // Initial style probability
 	
 	// Color Palettes
 	public static Color[] style_colors = // Light pink -> dark purple values representing style
@@ -62,14 +70,14 @@ public class Parameters
 	};
 	
 	// Llama Behaviour Settings
-	public static double energy_init = 1000; // Initial energy
+	public static double energy_init = 500; // Initial energy
 	public static double idle_regain = 2.5; // How much energy is saved while idle
 	public static double aggressive_loss = 2.5; // How much energy is lost when aggressive
 	public static int search_radius = 5; // How far to search when pathfinding
 	public static double food_regain = 2000; // How much energy is regained by eating
 	public static double attack_loss = 200; // How much energy is lost when attacked
 	// Increase this to increase the chance of a llama being stunned when faced with a more stylish llama
-	public static double stylishness_multiplicity = 2.5;
+	public static double stylishness_multiplicity = 10;
 	
 	// Llama Timer Settings
 	public static int run_cooldown = 5; // How long to run away from a foe
@@ -130,74 +138,87 @@ public class Parameters
 		String reply = in.nextLine();
 		if (reply.charAt(0) == 'N' || reply.charAt(0) == 'n')
 		{
-			in.close();
 			return;
 		}
 		
 		System.out.print("world_arability (default = " + world_arability + " ): ");
-		world_arability = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			world_arability = Double.parseDouble(reply);
 		
 		System.out.print("world_obsrate (default = " + world_obsrate + " ): ");
-		world_obsrate = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			world_obsrate = Double.parseDouble(reply);
 		
 		System.out.print("world_hazrate (default = " + world_hazrate + " ): ");
-		world_hazrate = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			world_hazrate = Double.parseDouble(reply);
 		
 		System.out.print("energy_loss (default = " + energy_loss + " ): ");
-		energy_loss = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			energy_loss = Double.parseDouble(reply);
 		
 		System.out.print("num_llamas (default = " + num_llamas + " ): ");
-		world_arability = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			world_arability = Double.parseDouble(reply);
 		
 		System.out.print("mutation_rate (default = " + mutation_rate + " ): ");
-		mutation_rate = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			mutation_rate = Double.parseDouble(reply);
 		
 		System.out.print("energy_init (default = " + energy_init + " ): ");
-		energy_init = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			energy_init = Double.parseDouble(reply);
 		
 		System.out.print("idle_regain (default = " + idle_regain + " ): ");
-		idle_regain = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			idle_regain = Double.parseDouble(reply);
 		
 		System.out.print("aggressive_loss (default = " + aggressive_loss + " ): ");
-		aggressive_loss = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			aggressive_loss = Double.parseDouble(reply);
 		
 		System.out.print("search_radius (default = " + search_radius + " ): ");
-		search_radius = (int) in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			search_radius = (int) Double.parseDouble(reply);
 		
 		System.out.print("food_regain (default = " + food_regain + " ): ");
-		food_regain = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			food_regain = Double.parseDouble(reply);
 		
 		System.out.print("attack_loss (default = " + attack_loss + " ): ");
-		attack_loss = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			attack_loss = Double.parseDouble(reply);
 		
 		System.out.print("stylishness_multiplicity (default = " + stylishness_multiplicity + " ): ");
-		stylishness_multiplicity = in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			stylishness_multiplicity = Double.parseDouble(reply);
 		
 		System.out.print("run_cooldown (default = " + run_cooldown + " ): ");
-		run_cooldown = (int) in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			run_cooldown = (int) Double.parseDouble(reply);
 		
 		System.out.print("stun_timer (default = " + stun_timer + " ): ");
-		stun_timer = (int) in.nextDouble();
-		in.nextLine();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			stun_timer = (int) Double.parseDouble(reply);
 		
 		System.out.print("eating_timer (default = " + eating_timer + " ): ");
-		eating_timer = (int) in.nextDouble();
-		in.nextLine();
-		
-		in.close();
+		reply = in.nextLine();
+		if (double_pattern.matcher(reply).matches())
+			eating_timer = (int) Double.parseDouble(reply);
 	}
 }
