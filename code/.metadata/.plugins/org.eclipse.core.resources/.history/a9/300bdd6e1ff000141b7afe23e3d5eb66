@@ -13,7 +13,7 @@ public class Parameters
 		    "[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*");
 	
 	// Write experiment notes here to debug
-	public static String experiment_notes = "World goes from very arable to not arable at all";
+	public static String experiment_notes = "All values started at 0.5";
 	
 	// Window Settings
 	public static int window_size = 1000; // Width and height of the game window. Recommend to keep constant
@@ -21,9 +21,9 @@ public class Parameters
 	
 	// World Instantiation Settings
 	// The below 3 should be in constant increasing order
-	public static double world_arability = 0.8; // Probability of a spot on the world getting food = arability
-	public static double world_obsrate = 0.9; // Probability of a spot on the world being colored alternatively = obsrate - arability
-	public static double world_hazrate = 0.9; // Probability of a spot on the world being dangerous = hazrate - obsrate
+	public static double world_arability = 0.1; // Probability of a spot on the world getting food = arability
+	public static double world_obsrate = 0.3; // Probability of a spot on the world being colored alternatively = obsrate - arability
+	public static double world_hazrate = 0.3; // Probability of a spot on the world being dangerous = hazrate - obsrate
 	
 	public static double energy_loss = 10; // Energy lost every turn
 	
