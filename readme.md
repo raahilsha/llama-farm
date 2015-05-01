@@ -5,6 +5,7 @@ This project, Llama Farm, attempts to simulate a llama farm using advanced algor
 
 In this readme, we will outline our project structure.
 
+```
 code/                     - Basic code folder
     LlamaFarm/            - Eclipse project root
 	    bin/              - Where everything gets compiled to
@@ -16,3 +17,4 @@ report/                   - Various other documents that are used in our project
 info.txt                  - For CS51 Automatic Submission
 README.md                 - This file!
 report.pdf                - Our final project report
+```
