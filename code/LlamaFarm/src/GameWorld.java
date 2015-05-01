@@ -21,12 +21,18 @@ public class GameWorld
 	private int generation;
 	private int ticksThisGen;
 	private double[] lastGenReps;
+	private boolean askForNewParams;
 	
 	private PrintWriter out;
 	
 	// Constructor for GameWorld
 	public GameWorld(double a, double o, double h, double d, int pw)
 	{
+		Scanner in = new Scanner(System.in);
+		System.out.print("Should we ask for new parameters every 25 generations? (y/n): ");
+		String reply = in.nextLine();
+		askForNewParams = reply.charAt(0) == 'Y' || reply.charAt(0) == 'y';
+		
 		// Basic  world parameters
 		arability = a;
 		obsRate = o;
@@ -141,15 +147,25 @@ public class GameWorld
 	// Takes the arraylist of llamas and creates a brand new generation
 	public void createNewGeneration()
 	{
+		if ((generation + 1) % 25 == 0)
+		{
+			if (askForNewParams)
+				Parameters.askForParameters();
+			arability = Parameters.world_arability;
+			obsRate = Parameters.world_obsrate;
+			hazRate = Parameters.world_hazrate;
+			energyDrain = Parameters.energy_loss;
+		}		
+		
 		retile();
 		double[] representation = getGeneRepresentation();
 		
-		while (llamas.size() < numLlamas / 2)
+		while (llamas.size() < Parameters.num_llamas / 2)
 		{
 			addRepresentativeLlama(representation);
 		}
 		
-		for (int i = 0; i < numLlamas / 4; i++)
+		for (int i = 0; i < Parameters.num_llamas / 4; i++)
 		{
 			Llama llama1 = llamas.remove(0);
 			Llama llama2 = llamas.remove(0);

@@ -68,7 +68,7 @@ public class Gene
 		String newStrand1 = "";
 		String newStrand2 = "";
 		// Create a different temp newStrand1 because Strings use OOP and are copied by reference
-		// String newStrand1temp = "";
+		String newStrand1temp = "";
 		
 		for (int i = 0; i < strandLength; i++)
 		{
@@ -95,14 +95,13 @@ public class Gene
 				newStrand2 += strand2.charAt(i);
 			
 			// Builds newStrand1temp
-			// newStrand1temp += newStrand1.charAt(i);
+			newStrand1temp += newStrand1.charAt(i);
 		}
 		
-		// Disabled crossing over because we don't have multiple "genes" on the same "chromosome"
 		// Perform crossing over of strands
-		// int crossoverIndex = (int)(Math.random() * (strandLength + 1));
-		// newStrand1 = newStrand1.substring(0, crossoverIndex) + newStrand2.substring(crossoverIndex);
-		// newStrand2 = newStrand2.substring(0, crossoverIndex) + newStrand1temp.substring(crossoverIndex);
+		int crossoverIndex = (int)(Math.random() * (strandLength + 1));
+		newStrand1 = newStrand1.substring(0, crossoverIndex) + newStrand2.substring(crossoverIndex);
+		newStrand2 = newStrand2.substring(0, crossoverIndex) + newStrand1temp.substring(crossoverIndex);
 		
 		strand1 = newStrand1;
 		strand2 = newStrand2;
@@ -159,5 +158,37 @@ public class Gene
 	public void changeOffspringCount(int x)
 	{
 		offspringCount = x;
+	}
+	
+	// Testing Function - Only used in development
+	public static void testGene()
+	{
+		// Gene Testing
+		// Create test genes with automatic values
+		Gene a = new Gene(20, 0.9, 0.1);
+		Gene b = new Gene(20, 0.1, 0.1);
+		System.out.println("Parents:");
+		System.out.println(a.getStrand1() + " " + a.getStrand2());
+		System.out.println(b.getStrand1() + " " + b.getStrand2());
+		
+		// Create test genes with pre-determined values
+		// Gene a = new Gene("1111111111", "0000000000", 0);
+		// Gene b = new Gene("1111111111", "0000000000", 0);
+		
+		// Gene Meiosis Testing
+		a.meiosis();
+		b.meiosis();
+		System.out.println("Parents after meiosis:");
+		System.out.println(a.getStrand1() + " " + a.getStrand2());
+		System.out.println(b.getStrand1() + " " + b.getStrand2());
+		
+		// Gene Breeding Testing
+		a.changeOffspringCount(7);
+		Gene[] offspring = a.combineWith(b);
+		System.out.println("Children:");
+		for (Gene x : offspring)
+		{
+			System.out.println(x.getStrand1() + " " + x.getStrand2() + " - " + x.getActivation());
+		}
 	}
 }

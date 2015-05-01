@@ -3,12 +3,12 @@ for (csvfile in toanalyze)
 {
 	dataset <- read.csv(csvfile,header=T)
 
-	newfilen <- paste(substring(csvfile, 0, 76), "_ticks.png", sep = "")
+	newfilen <- paste(substring(csvfile, 0, 81), "_ticks.png", sep = "")
 	png(filename=newfilen,width=512,height=512)
 	plot(dataset[,1],dataset[,2],xlab="Generation Number",ylab="Ticks Survived",main="Ticks Survived over Time")
 	dev.off()
 
-	newfilen <- paste(substring(csvfile, 0, 76), "_genes.png", sep = "")
+	newfilen <- paste(substring(csvfile, 0, 81), "_genes.png", sep = "")
 	png(filename=newfilen,width=512,height=512)
 	
 	plot(dataset[,1],dataset[,3],col=1,pch=1,ylim=c(0,1),main="Genes Representation over Time",xlab="Generation Number",ylab="Index")
@@ -24,5 +24,3 @@ for (csvfile in toanalyze)
 
 	dev.off()
 }
-
-

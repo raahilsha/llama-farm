@@ -1,0 +1,29 @@
+Experiment at time 1430239559779
+------------------------------
+experiment_notes: All values started at 0.1, 4x normal lifespan, 0.01 hazard
+window_size: 1000
+frames_per_second: -1
+world_arability: 0.2
+world_obsrate: 0.6
+world_hazrate: 0.61
+energy_loss: 2.5
+num_tiles: 125
+num_llamas: 100
+num_generations: 1000
+mutation_rate: 0.0
+genome_length: 1000
+hunger_init: 0.1
+lazy_init: 0.1
+violent_init: 0.1
+meta_init: 0.1
+style_init: 0.1
+energy_init: 1000.0
+idle_regain: 0.625
+aggressive_loss: 0.625
+search_radius: 5
+food_regain: 2000.0
+attack_loss: 200.0
+stylishness_multiplicity: 2.5
+run_cooldown: 5
+stun_timer: 10
+eating_timer: 5

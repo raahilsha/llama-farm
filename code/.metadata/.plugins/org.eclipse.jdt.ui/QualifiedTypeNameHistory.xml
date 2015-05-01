@@ -4,4 +4,5 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.lang.reflect.Field"/>
 <fullyQualifiedTypeName name="Tile.TileTypes"/>
+<fullyQualifiedTypeName name="java.util.regex.Pattern"/>
 </qualifiedTypeNameHistroy>
