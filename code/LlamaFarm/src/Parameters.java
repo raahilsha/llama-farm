@@ -21,9 +21,9 @@ public class Parameters
 	
 	// World Instantiation Settings
 	// The below 3 should be in constant increasing order
-	public static double world_arability = 0.8; // Probability of a spot on the world getting food = arability
-	public static double world_obsrate = 0.9; // Probability of a spot on the world being colored alternatively = obsrate - arability
-	public static double world_hazrate = 0.9; // Probability of a spot on the world being dangerous = hazrate - obsrate
+	public static double world_arability = 0.1; // Probability of a spot on the world getting food = arability
+	public static double world_obsrate = 0.5; // Probability of a spot on the world being colored alternatively = obsrate - arability
+	public static double world_hazrate = 0.51; // Probability of a spot on the world being dangerous = hazrate - obsrate
 	
 	public static double energy_loss = 10; // Energy lost every turn
 	
@@ -40,10 +40,10 @@ public class Parameters
 	public static int genome_length = 100; // Length of each gene
 	
 	// Initial Genome Settings
-	public static double hunger_init = 0.5; // Initial hunger probability
-	public static double lazy_init = 0.5; // Initial laziness probability
-	public static double violent_init = 0.5; // Initial violence probability
-	public static double meta_init = 0.5; // Initial metabolism probability
+	public static double hunger_init = 0.2; // Initial hunger probability
+	public static double lazy_init = 0.2; // Initial laziness probability
+	public static double violent_init = 0.2; // Initial violence probability
+	public static double meta_init = 0.2; // Initial metabolism probability
 	public static double style_init = 0.1; // Initial style probability
 	
 	// Color Palettes
