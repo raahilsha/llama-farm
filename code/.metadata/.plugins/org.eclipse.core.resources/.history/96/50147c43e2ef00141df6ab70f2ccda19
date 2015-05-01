@@ -70,7 +70,7 @@ public class Parameters
 	};
 	
 	// Llama Behaviour Settings
-	public static double energy_init = 500; // Initial energy
+	public static double energy_init = 1000; // Initial energy
 	public static double idle_regain = 2.5; // How much energy is saved while idle
 	public static double aggressive_loss = 2.5; // How much energy is lost when aggressive
 	public static int search_radius = 5; // How far to search when pathfinding
